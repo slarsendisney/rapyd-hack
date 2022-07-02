@@ -13,11 +13,8 @@ const BookingSteps = ({ stepCompleted = 2 }) => {
         return (
           <li
             data-content={
-              index === stepCompleted
-                ? "✓"
-                : stepCompleted >= index
-                ? ""
-                : step.content
+              isCompleted
+                ? "✓" : undefined
             }
             key={index}
             className={`step ${isCompleted ? "step-primary" : ""}`}

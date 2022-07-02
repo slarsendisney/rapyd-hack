@@ -29,7 +29,7 @@ const Hero = () => {
             payments.
           </h1>
           <p className="mb-8 leading-relaxed">
-            Plutus is an intelligent space tourisim payment platform. It
+            PlutusPay is an intelligent space tourisim payment platform. It
             facilitates local bank transfers over $100k in value by utilising
             the Rapyd - the world’s largest local payments network .
           </p>
