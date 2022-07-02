@@ -36,7 +36,7 @@ export const AuthProvider = ({ ...props }) => {
     >
       {loading ? (
         <Layout noLinks>
-          <LoadingSpinner text="Authenticating..." />
+          <LoadingSpinner text="Loading..." />
         </Layout>
       ) : !user && authRequired ? (
         <Login />

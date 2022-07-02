@@ -3,16 +3,8 @@ var parser = require("accept-language-parser");
 const countryToCurrency = require("country-to-currency");
 const currencyFormatter = require("currency-formatter");
 
-const availableCurrencies = async () => {
-  const accounts = await makeRequest(
-    "GET",
-    "/v1/issuing/bankaccounts/list?ewallet=ewallet_cd21738512808e9db22367465ae294b5"
-  );
-  const currencies = accounts.body.data.bank_accounts.map(
-    ({ currency }) => currency
-  );
-  return currencies;
-};
+
+const availableCurrencies = ["USD", "SGD"];
 
 export const reqToCurrency = (req) => {
   const currencies = parser
@@ -28,12 +20,11 @@ export const reqToCurrency = (req) => {
 
 export const currencyProbe = async (req) => {
   const chargeCurrency = reqToCurrency(req);
-  const currencies = await availableCurrencies();
   return {
-    chargeCurrency: currencies.includes(chargeCurrency)
+    chargeCurrency: availableCurrencies.includes(chargeCurrency)
       ? chargeCurrency
       : "USD",
-    availableCurrencies: currencies,
+    availableCurrencies: availableCurrencies,
   };
 };
 

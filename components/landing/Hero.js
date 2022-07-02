@@ -11,7 +11,7 @@ const Hero = () => {
   }, []);
   return (
     <section className=" body-font">
-      <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div className="container mx-auto flex px-5 py-12 md:py-24 md:flex-row flex-col items-center">
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
           <div className="flex justify-center pointer-events-none -my-12">
             <Globe
