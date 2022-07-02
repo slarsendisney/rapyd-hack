@@ -5,10 +5,15 @@
 html,
 body {
   @apply bg-black text-gray-100;
+  min-height: 100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+main {
+  min-height: calc(100vh - 180px);
 }
 
 a {
@@ -18,4 +23,28 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.btn-primary {
+  @apply bg-indigo-500 hover:bg-indigo-400 text-white px-4 py-0.5 rounded font-bold;
+}
+
+.btn-primary-lg {
+  @apply bg-indigo-500 hover:bg-indigo-400 text-white px-4 py-2 rounded font-bold;
+}
+
+.btn-secondary {
+  @apply bg-gray-800 hover:bg-gray-700 text-gray-200 px-4 py-0.5 rounded font-bold;
+}
+
+.btn-icon {
+  @apply text-indigo-400 hover:text-indigo-500;
+}
+
+.input {
+  @apply appearance-none block bg-black  w-full px-3 py-2 border-gray-700 border-2 rounded-md shadow-sm placeholder-gray-600 focus:outline-none focus:ring-yellow-500 focus:border-indigo-500 sm:text-sm;
+}
+
+.checkbox {
+  @apply h-4 w-4 text-yellow-400 focus:ring-yellow-500 border-gray-700 border-2 bg-gray-200 dark:bg-gray-900 rounded;
 }

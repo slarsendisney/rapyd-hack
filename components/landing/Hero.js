@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { PaperAirplaneIcon, CalendarIcon } from "@heroicons/react/solid";
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
 
@@ -32,12 +33,12 @@ const Hero = () => {
             facilitates local bank transfers over $100k in value by utilising
             the Rapyd - the world’s largest local payments network .
           </p>
-          <div className="flex justify-center">
-            <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-              Book Now
+          <div className="flex justify-center space-x-3">
+            <button className="flex items-center space-x-1 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <PaperAirplaneIcon className="h-5 w-5"/> <span>Book Now</span>
             </button>
-            <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-              Button
+            <button className="flex items-center space-x-1 text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+            <CalendarIcon className="h-5 w-5"/> <span>View Bookings</span>
             </button>
           </div>
         </div>
