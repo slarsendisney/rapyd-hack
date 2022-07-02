@@ -16,15 +16,6 @@ export const AuthProvider = ({ ...props }) => {
   useFirebase();
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = () => {
-    setIsLoggedIn(true);
-  };
-  const logout = () => {
-    setIsLoggedIn(false);
-  };
   const authRequired = useMemo(() => {
     if (publicRoutes.includes(router.pathname)) {
       return false;
@@ -32,25 +23,27 @@ export const AuthProvider = ({ ...props }) => {
     return true;
   }, [router.pathname]);
 
-  if (loading) {
-    return (
-      <Layout>
-        <LoadingSpinner text="Authenticating..." />
-      </Layout>
-    );
+  const logout = () => {
+    auth.signOut();
   }
-  if (!user && authRequired) {
-    return <Login login={login} />;
-  }
- 
+
   return (
     <AuthContext.Provider
       value={{
-        login,
         logout,
+        user,
       }}
-      {...props}
-    />
+    >
+      {loading ? (
+        <Layout noLinks>
+          <LoadingSpinner text="Authenticating..." />
+        </Layout>
+      ) : !user && authRequired ? (
+        <Login />
+      ) : (
+        props.children
+      )}
+    </AuthContext.Provider>
   );
 };
 

@@ -1,8 +1,12 @@
 import { GlobeAltIcon } from "@heroicons/react/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "../../context/auth-context";
 
 const Header = ({ noLinks = false }) => {
+  const { user, logout } = useAuth();
+  console.log(user);
   return (
     <header className="body-font max-w-6xl mx-auto">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -31,6 +35,17 @@ const Header = ({ noLinks = false }) => {
                 Book Now
               </button>
             </Link>
+            {user && (
+              <button onClick={logout}>
+                <img
+                  src={user.photoURL}
+                  height={96}
+                  width={96}
+                  className="rounded-full h-8 w-8 ml-2"
+                  alt="profile image"
+                />
+              </button>
+            )}
           </>
         )}
       </div>
