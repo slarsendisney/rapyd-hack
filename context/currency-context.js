@@ -6,10 +6,10 @@ export const CurrencyProvider = ({ ...props }) => {
   const [preferredCurrency, setPreferredCurrency] = useState(false);
   useEffect(() => {
     (async () => {
-      const { chargeCurrency } = await fetch("/api/currency-probe").then(
+      const { chargeCurrency, availableCurrencies } = await fetch("/api/currency-probe").then(
         (res) => res.json()
       );
-      console.log({chargeCurrency})
+      console.log({chargeCurrency, availableCurrencies})
       setPreferredCurrency(chargeCurrency);
     })();
   }, []);

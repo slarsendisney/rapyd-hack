@@ -1,13 +1,27 @@
-const BookingSteps = () => (
-    <ul className="steps">
-    <li data-content="📧" className="step step-primary">Step 1</li>
-    <li data-content="!" className="step step-primary">Step 2</li>
-    <li data-content="✓" className="step step-primary">Step 3</li>
-    <li data-content="✕" className="step step-primary">Step 4</li>
-    <li data-content="★" className="step ">Step 5</li>
-    <li data-content="" className="step ">Step 6</li>
-    <li data-content="●" className="step ">Step 7</li>
-  </ul>
-);
+const BookingSteps = ({ stepCompleted = 2 }) => {
+  const steps = [
+    { content: "$", label: "Dates" },
+    { content: "$", label: "Currency" },
+    { content: "", label: "Deposit" },
+    { content: "", label: "Settle Up" },
+    { content: "🚀", label: "Trip Finalized" },
+  ];
+  return (
+    <ul className="steps mt-12">
+      {steps.map((step, index) => {
+        const isCompleted = index < stepCompleted;
+        return (
+          <li
+            data-content={isCompleted ? "✓" : step.content}
+            key={index}
+            className={`step ${isCompleted ? "step-primary" : ""}`}
+          >
+            {step.label}
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
 
 export default BookingSteps;
