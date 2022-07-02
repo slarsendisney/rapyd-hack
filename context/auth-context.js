@@ -1,6 +1,11 @@
 import React, { useState, useContext, useMemo, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth, signOut } from "firebase/auth";
 import Login from "../components/full-page/Login/Login";
+import LoadingSpinner from "../components/root/LoadingSpinner";
+import Layout from "../components/layout/Layout";
+import useFirebase from "../hooks/useFirebase";
 
 const AuthContext = React.createContext();
 
@@ -8,6 +13,9 @@ const publicRoutes = ["/"];
 
 export const AuthProvider = ({ ...props }) => {
   const router = useRouter();
+  useFirebase();
+  const auth = getAuth();
+  const [user, loading, error] = useAuthState(auth);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -23,9 +31,18 @@ export const AuthProvider = ({ ...props }) => {
     }
     return true;
   }, [router.pathname]);
-  if (!isLoggedIn && authRequired) {
+
+  if (loading) {
+    return (
+      <Layout>
+        <LoadingSpinner text="Authenticating..." />
+      </Layout>
+    );
+  }
+  if (!user && authRequired) {
     return <Login login={login} />;
   }
+ 
   return (
     <AuthContext.Provider
       value={{

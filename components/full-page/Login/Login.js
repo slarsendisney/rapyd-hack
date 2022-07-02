@@ -1,17 +1,60 @@
 import { useState } from "react";
-import { useAuth } from "../../../context/auth-context";
-import Footer from "../../layout/Footer";
 import Layout from "../../layout/Layout";
-import Logo from "../../layout/Logo";
 import SocialSignIn from "./SocialSignIn";
+
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+
+const googleProvider = new GoogleAuthProvider();
 
 const Login = ({ login }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [persistance, setPersistance] = useState(false);
+  const auth = getAuth();
 
-  const signInWithGoogle = () => {};
-  const signInWithEmail = () => {};
+  const signInWithGoogle = () => {
+    auth.setPersistence(browserLocalPersistence);
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        // The signed-in user info.
+        // const user = result.user
+        login();
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+      });
+  };
+
+  const signInWithEmail = () => {
+    if (persistance) {
+      auth.setPersistence(browserLocalPersistence);
+    } else {
+      auth.setPersistence(browserSessionPersistence);
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
   return (
     <Layout noLinks={true}>
       <div className="min-h-full flex flex-col justify-center py-6 lg:py-24 sm:px-6 lg:px-8">
@@ -86,7 +129,10 @@ const Login = ({ login }) => {
               </div>
 
               <div>
-                <button className="py-4 btn-primary-lg w-full" onClick={login}>
+                <button
+                  className="py-4 btn-primary-lg w-full"
+                  onClick={signInWithEmail}
+                >
                   Sign in
                 </button>
               </div>
