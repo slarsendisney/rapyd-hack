@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
@@ -29,8 +28,9 @@ const Hero = () => {
             payments.
           </h1>
           <p className="mb-8 leading-relaxed">
-            Plutus is an intelligent space tourisim payment platform. It facilitates local bank transfers
-            over $100k in value by utilising the Rapyd network. 
+            Plutus is an intelligent space tourisim payment platform. It
+            facilitates local bank transfers over $100k in value by utilising
+            the Rapyd - the world’s largest local payments network .
           </p>
           <div className="flex justify-center">
             <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
