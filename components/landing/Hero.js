@@ -1,10 +1,105 @@
-import { useEffect, useRef } from "react";
-import { PaperAirplaneIcon, CalendarIcon } from "@heroicons/react/solid";
+import { useEffect, useRef, useState } from "react";
+import { PaperAirplaneIcon, ShoppingBagIcon } from "@heroicons/react/solid";
+import indexBy from "index-array-by";
+import * as d3 from "d3-dsv";
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
 
+const airportParse = ([
+  airportId,
+  name,
+  city,
+  country,
+  iata,
+  icao,
+  lat,
+  lng,
+  alt,
+  timezone,
+  dst,
+  tz,
+  type,
+  source,
+]) => ({
+  airportId,
+  name,
+  city,
+  country,
+  iata,
+  icao,
+  lat,
+  lng,
+  alt,
+  timezone,
+  dst,
+  tz,
+  type,
+  source,
+});
+const routeParse = ([
+  airline,
+  airlineId,
+  srcIata,
+  srcAirportId,
+  dstIata,
+  dstAirportId,
+  codeshare,
+  stops,
+  equipment,
+]) => ({
+  airline,
+  airlineId,
+  srcIata,
+  srcAirportId,
+  dstIata,
+  dstAirportId,
+  codeshare,
+  stops,
+  equipment,
+});
+
+const COUNTRY = "United States";
+const OPACITY = 0.62;
+
 const Hero = () => {
   const globeEl = useRef();
+  const [airports, setAirports] = useState([]);
+  const [routes, setRoutes] = useState([]);
+
+  useEffect(() => {
+    // load data
+    Promise.all([
+      fetch(
+        "https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat"
+      )
+        .then((res) => res.text())
+        .then((d) => d3.csvParseRows(d, airportParse)),
+      fetch(
+        "https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat"
+      )
+        .then((res) => res.text())
+        .then((d) => d3.csvParseRows(d, routeParse)),
+    ]).then(([airports, routes]) => {
+      const byIata = indexBy(airports, "iata", false);
+
+      const filteredRoutes = routes
+        .filter(
+          (d) =>
+            byIata.hasOwnProperty(d.srcIata) && byIata.hasOwnProperty(d.dstIata)
+        ) // exclude unknown airports
+        .filter((d) => d.stops === "0") // non-stop flights only
+        .map((d) =>
+          Object.assign(d, {
+            srcAirport: byIata[d.srcIata],
+            dstAirport: byIata[d.dstIata],
+          })
+        )
+        .filter((d, i) => i % 128 === 0); // international routes from country
+
+      setAirports(airports);
+      setRoutes(filteredRoutes);
+    });
+  }, []);
   useEffect(() => {
     globeEl.current.controls().autoRotate = true;
     globeEl.current.controls().autoRotateSpeed = 0.6;
@@ -20,6 +115,29 @@ const Hero = () => {
               height={600}
               backgroundColor="#ffffff00"
               globeImageUrl="/assets/earth.png"
+              arcsData={routes}
+              arcLabel={(d) =>
+                `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`
+              }
+              arcStroke={0.5}
+              arcStartLat={(d) => +d.srcAirport.lat}
+              arcStartLng={(d) => +d.srcAirport.lng}
+              arcEndLat={(d) => +d.dstAirport.lat}
+              arcEndLng={(d) => +d.dstAirport.lng}
+              arcDashLength={0.55}
+              arcDashGap={1}
+              arcDashInitialGap={() => Math.random()}
+              arcDashAnimateTime={4000}
+              arcColor={(d) => [
+                `rgba(255, 255, 255, ${OPACITY})`,
+                `rgba(129, 140, 248, ${OPACITY})`,
+              ]}
+              arcsTransitionDuration={0}
+              pointsData={airports}
+              pointColor={() => "orange"}
+              pointAltitude={0}
+              pointRadius={0.02}
+              pointsMerge={true}
             />
           </div>
         </div>
@@ -29,16 +147,18 @@ const Hero = () => {
             payments.
           </h1>
           <p className="mb-8 leading-relaxed">
-            PlutusPay is an intelligent space tourisim payment platform. It
-            facilitates local bank transfers over $100k in value by utilising
-            the Rapyd - the world’s largest local payments network .
+            PlutusPay is an intelligent payment platform for high-value
+            transactions. It facilitates local bank transfers over $100k in
+            value by utilising Rapyd - the world’s largest local payments
+            network .
           </p>
           <div className="flex justify-center space-x-3">
             <button className="flex items-center space-x-1 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-              <PaperAirplaneIcon className="h-5 w-5"/> <span>Book Now</span>
+              <PaperAirplaneIcon className="h-5 w-5" />{" "}
+              <span>Create Store</span>
             </button>
             <button className="flex items-center space-x-1 text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-            <CalendarIcon className="h-5 w-5"/> <span>View Bookings</span>
+              <ShoppingBagIcon className="h-5 w-5" /> <span>View Stores</span>
             </button>
           </div>
         </div>

@@ -1,9 +1,13 @@
 import Head from "next/head";
-import BookingSteps from "../../components/booking/BookingSteps";
+import { useRouter } from "next/router";
+import BookingBreadcrumbs from "../../components/booking/BookingBreadcrumbs";
+import BookingStep from "../../components/booking/BookingStep";
 import Layout from "../../components/layout/Layout";
 import { BookingProvider } from "../../context/booking-context";
 
 export default function Home() {
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <div>
       <Head>
@@ -12,9 +16,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <BookingProvider>
-          <div className="flex">
-            <BookingSteps />
+        <BookingProvider id={id}>
+          <div className="">
+            <BookingBreadcrumbs />
+            <BookingStep />
           </div>
         </BookingProvider>
       </Layout>

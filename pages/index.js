@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/landing/Hero";
+import StoreGallery from "../components/landing/StoreGallery";
 import Layout from "../components/layout/Layout";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       </Head>
       <Layout>
         <Hero />
+        <StoreGallery />
       </Layout>
     </div>
   );

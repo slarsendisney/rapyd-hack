@@ -1,17 +1,14 @@
-import { v4 as uuidv4 } from "uuid";
 import { database } from "../../utils/intialiseFirebase";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { uuid } = req.body;
-      const bookingID = uuidv4();
-
+      const { uuid, subdomain } = req.body;
       const db = database();
-      const doc = await db.collection("bookings").doc(bookingID).set({
+      const doc = await db.collection("stores").doc(subdomain).set({
         owner: uuid,
       });
-      res.send({ bookingID });
+      res.send({ subdomain });
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }

@@ -1,4 +1,7 @@
-const BookingSteps = ({ stepCompleted = 2 }) => {
+import { useBooking } from "../../context/booking-context";
+
+const BookingBreadcrumbs = () => {
+  const { activeStep } = useBooking();
   const steps = [
     { content: "🗓", label: "Dates" },
     { content: "$", label: "Currency" },
@@ -7,15 +10,13 @@ const BookingSteps = ({ stepCompleted = 2 }) => {
     { content: "🚀", label: "Trip Finalized" },
   ];
   return (
-    <ul className="steps mt-12 text-white max-w-3xl w-full border-gray-900 mx-auto">
+    <div className="max-w-3xl mx-auto w-full">
+    <ul className="steps my-12 text-white max-w-3xl w-full border-gray-900 mx-auto">
       {steps.map((step, index) => {
-        const isCompleted = index <= stepCompleted;
+        const isCompleted = index < activeStep;
         return (
           <li
-            data-content={
-              isCompleted
-                ? "✓" : undefined
-            }
+            data-content={isCompleted ? "✓" : undefined}
             key={index}
             className={`step ${isCompleted ? "step-primary" : ""}`}
           >
@@ -24,7 +25,8 @@ const BookingSteps = ({ stepCompleted = 2 }) => {
         );
       })}
     </ul>
+    </div>
   );
 };
 
-export default BookingSteps;
+export default BookingBreadcrumbs;

@@ -10,21 +10,22 @@ export const reqToCurrency = (req) => {
   const currencies = parser
     .parse(req.headers["accept-language"])
     .filter(({ region }) => region)
-    .map(({ region }) => countryToCurrency[region]);
+    .map(({ region }) => ({region, currency: countryToCurrency[region]}));
 
   if (currencies.length > 0) {
     return currencies[0];
   }
-  return "USD";
+  return ({region: "US", currency: "USD"});
 };
 
 export const currencyProbe = async (req) => {
-  const chargeCurrency = reqToCurrency(req);
+  const {currency, region} = reqToCurrency(req);
   return {
-    chargeCurrency: availableCurrencies.includes(chargeCurrency)
-      ? chargeCurrency
+    chargeCurrency: availableCurrencies.includes(currency)
+      ? currency
       : "USD",
     availableCurrencies: availableCurrencies,
+    region,
   };
 };
 
