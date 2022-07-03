@@ -1,0 +1,6 @@
+sld.localhost {
+        reverse_proxy localhost:3000
+}
+test.localhost {
+        reverse_proxy localhost:3000
+}
