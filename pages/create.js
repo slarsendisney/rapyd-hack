@@ -17,7 +17,7 @@ export default function Book() {
       </Head>
       <Layout>
         <div className="max-w-5xl mx-auto">
-        <h1>Hey {displayName}, let's get you started.</h1>
+            <h1>Hey {displayName}, let&apos;s get you started.</h1>
         </div>
       </Layout>
     </div>
