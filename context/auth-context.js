@@ -27,6 +27,7 @@ export const AuthProvider = ({ ...props }) => {
     auth.signOut();
   }
 
+  console.log(user)
   return (
     <AuthContext.Provider
       value={{

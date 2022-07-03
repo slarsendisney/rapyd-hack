@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { PaperAirplaneIcon, ShoppingBagIcon } from "@heroicons/react/solid";
 import indexBy from "index-array-by";
 import * as d3 from "d3-dsv";
+import Routes from "./Routes.json";
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
 
@@ -63,42 +64,10 @@ const OPACITY = 0.62;
 
 const Hero = () => {
   const globeEl = useRef();
-  const [airports, setAirports] = useState([]);
   const [routes, setRoutes] = useState([]);
 
   useEffect(() => {
-    // load data
-    Promise.all([
-      fetch(
-        "https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat"
-      )
-        .then((res) => res.text())
-        .then((d) => d3.csvParseRows(d, airportParse)),
-      fetch(
-        "https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat"
-      )
-        .then((res) => res.text())
-        .then((d) => d3.csvParseRows(d, routeParse)),
-    ]).then(([airports, routes]) => {
-      const byIata = indexBy(airports, "iata", false);
-
-      const filteredRoutes = routes
-        .filter(
-          (d) =>
-            byIata.hasOwnProperty(d.srcIata) && byIata.hasOwnProperty(d.dstIata)
-        ) // exclude unknown airports
-        .filter((d) => d.stops === "0") // non-stop flights only
-        .map((d) =>
-          Object.assign(d, {
-            srcAirport: byIata[d.srcIata],
-            dstAirport: byIata[d.dstIata],
-          })
-        )
-        .filter((d, i) => i % 128 === 0); // international routes from country
-
-      setAirports(airports);
-      setRoutes(filteredRoutes);
-    });
+    setRoutes(Routes);
   }, []);
   useEffect(() => {
     globeEl.current.controls().autoRotate = true;
@@ -133,11 +102,6 @@ const Hero = () => {
                 `rgba(129, 140, 248, ${OPACITY})`,
               ]}
               arcsTransitionDuration={0}
-              pointsData={airports}
-              pointColor={() => "orange"}
-              pointAltitude={0}
-              pointRadius={0.02}
-              pointsMerge={true}
             />
           </div>
         </div>

@@ -1,4 +1,3 @@
-import { useAuth } from "../../context/auth-context";
 import Footer from "./Footer";
 import Header from "./Header";
 
