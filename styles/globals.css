@@ -42,13 +42,17 @@ a {
 }
 
 .input {
-  @apply appearance-none block bg-black  w-full px-3 py-2 border-gray-700 border-2 rounded-md shadow-sm placeholder-gray-600 focus:outline-none focus:ring-yellow-500 focus:border-indigo-500 sm:text-sm;
+  @apply mt-2 appearance-none block bg-black  w-full px-3 py-2 border-gray-700 border-2 rounded-md shadow-sm placeholder-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
 }
 
+
+.input-basic {
+  @apply appearance-none block bg-black  w-full px-3 py-2 border-gray-700 border-2 placeholder-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
+}
 .input-with-icon {
-  @apply appearance-none block bg-black  w-full pl-12 pr-3 py-2 border-gray-700 border-2 rounded-md shadow-sm placeholder-gray-600 focus:outline-none focus:ring-yellow-500 focus:border-indigo-500 sm:text-sm;
+  @apply appearance-none block bg-black  w-full pl-12 pr-3 py-2 border-gray-700 border-2 rounded-md shadow-sm placeholder-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm;
 }
 
 .checkbox {
-  @apply h-4 w-4 text-yellow-400 focus:ring-yellow-500 border-gray-700 border-2 bg-gray-200 dark:bg-gray-900 rounded;
+  @apply h-4 w-4 text-indigo-400 focus:ring-indigo-500 border-gray-700 border-2 bg-gray-200 dark:bg-gray-900 rounded;
 }

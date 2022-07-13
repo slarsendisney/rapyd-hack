@@ -26,13 +26,11 @@ export const AuthProvider = ({ ...props }) => {
   const logout = () => {
     auth.signOut();
   }
-
-  console.log(user)
   return (
     <AuthContext.Provider
       value={{
         logout,
-        user,
+        user
       }}
     >
       {loading ? (

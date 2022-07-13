@@ -12,7 +12,7 @@ const DashboardHeader = ({ table = [] }) => {
           name="search-bar"
           id="search-bar"
           className="input-with-icon "
-          placeholder="Search Audits"
+          placeholder="Search Stores"
           //   value={query}
           //   onChange={handleInputChange}
         />
@@ -25,7 +25,7 @@ const DashboardHeader = ({ table = [] }) => {
           </p>
         </div>
         <Link href="/create">
-          <button className="flex space-x-1 items-center">
+          <button className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-400 rounded text-base md:mt-0">
             New <PlusCircleIcon className="ml-2 h-5 w-5" />
           </button>
         </Link>

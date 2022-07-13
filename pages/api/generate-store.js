@@ -3,8 +3,8 @@ import { database } from "../../utils/intialiseFirebase";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { uid, storeName, ...rest } = JSON.parse(req.body);
-      const subdomain = storeName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+      const { uid, storeName, subdomain:userSubdomainRequest, ...rest } = JSON.parse(req.body);
+      const subdomain = userSubdomainRequest.replace(/[^a-zA-Z0-9]/g, "").toLowerCase() || storeName.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
       const db = database();
       const doc = await db.collection("stores").doc(subdomain).get();
       if (doc.exists) {
@@ -14,6 +14,7 @@ export default async function handler(req, res) {
           owner: uid,
           storeName,
           subdomain,
+          ...rest,
         });
         res.send({ subdomain });
       }

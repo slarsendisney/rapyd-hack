@@ -3,14 +3,14 @@ const Footer = () => {
     <footer className="text-gray-600 body-font  max-w-6xl mx-auto">
       <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
         <p className="text-sm text-gray-500 sm:py-2 sm:mt-0 mt-4">
-          Built for &quot;Hack the Galaxy 2022&quot; (By Rapyd)
+          Built for &quot;Hack the Galaxy 2022&quot; by Rapyd
           <a
             href="https://twitter.com/SamLarsenDisney"
             className="ml-1"
             rel="noopener noreferrer"
             target="_blank"
           >
-            | @SamLarsenDisney
+            | Sam Larsen-Disney & Carlota Veal Baschwitz
           </a>
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">

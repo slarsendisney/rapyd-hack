@@ -3,6 +3,7 @@ import { PaperAirplaneIcon, ShoppingBagIcon } from "@heroicons/react/solid";
 import indexBy from "index-array-by";
 import * as d3 from "d3-dsv";
 import Routes from "./Routes.json";
+import Link from "next/link";
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
 
@@ -117,10 +118,12 @@ const Hero = () => {
             network .
           </p>
           <div className="flex justify-center space-x-3">
+            <Link href="/create">
             <button className="flex items-center space-x-1 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
               <PaperAirplaneIcon className="h-5 w-5" />{" "}
               <span>Create Store</span>
             </button>
+            </Link>
             <button className="flex items-center space-x-1 text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
               <ShoppingBagIcon className="h-5 w-5" /> <span>View Stores</span>
             </button>

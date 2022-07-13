@@ -1,6 +1,3 @@
-sld.localhost {
-        reverse_proxy localhost:3000
-}
-test.localhost {
+*.localhost {
         reverse_proxy localhost:3000
 }
