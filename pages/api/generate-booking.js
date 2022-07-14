@@ -10,6 +10,7 @@ export default async function handler(req, res) {
       const db = database();
       const doc = await db.collection("bookings").doc(bookingID).set({
         owner: uuid,
+        date: new Date(),
       });
       res.send({ bookingID });
     } catch (err) {

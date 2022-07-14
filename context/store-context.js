@@ -16,15 +16,16 @@ const getSubdomain = () => {
 export const StoreProvider = ({ ...props }) => {
   const [loading, setLoading] = useState(true);
   const [store, setStore] = useState(null);
+  const  [subdomain, setSubdomain] = useState("");
 
   useEffect(() => {
     (async () => {
-      const subdomain = getSubdomain();
-      console.log(`Subdomain: ${subdomain}`);
-      if (subdomain) {
+      const newSubdomain = getSubdomain();
+      setSubdomain(newSubdomain);
+      if (newSubdomain) {
         await fetch("/api/store-probe", {
           method: "POST",
-          body: JSON.stringify({ subdomain }),
+          body: JSON.stringify({ subdomain: newSubdomain }),
         })
           .then((res) => res.json())
           .then((data) => setStore(data))
@@ -41,7 +42,7 @@ export const StoreProvider = ({ ...props }) => {
     return <LoadingSpinner text="Loading your store..." />;
   }
 
-  return <StoreContext.Provider value={{ store }} {...props} />;
+  return <StoreContext.Provider value={{ store, subdomain }} {...props} />;
 };
 
 export const useStore = () => useContext(StoreContext);

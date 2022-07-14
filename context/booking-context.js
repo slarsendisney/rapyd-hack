@@ -1,5 +1,4 @@
 import React, { useState, useContext, useMemo, useEffect } from "react";
-import BookingStep from "../components/booking/BookingStep";
 import LoadingSpinner from "../components/root/LoadingSpinner";
 import { useAuth } from "./auth-context";
 import { useStore } from "./store-context";
@@ -10,30 +9,43 @@ export const BookingProvider = ({ id, ...props }) => {
   const {
     user: { uid },
   } = useAuth();
-  const { store } = useStore();
+  const { store, subdomain } = useStore();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
 
+  console.log(data)
   useEffect(() => {
     (async () => {
-      const bookingInfo = fetch(`/api/booking/${id}`, {
+      const bookingInfo = await fetch(`/api/booking/${id}`, {
         headers: {
           Authorization: `Bearer ${uid}`,
         },
       });
-      setData(bookingInfo);
+      const bookingData = await bookingInfo.json();
+      setData(bookingData);
       setLoading(false);
     })();
   }, [id]);
 
+  const autoSave = async (newData) => {
+    if (data) {
+      console.log("autoSaving");
+      const bookingInfo = await fetch(`/api/booking/${id}?storeID=${subdomain}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${uid}`,
+        },
+        body: JSON.stringify(newData),
+      });
+      const data = await bookingInfo.json();
+      console.log(data);
+      setData(data);
+    }
+  };
+
   const activeStepIndex = useMemo(() => {
     if (data) {
-      const milestones = [
-        "launchDate",
-        "currency",
-        "deposit",
-        "paymentComplete",
-      ];
+      const milestones = ["region", "currency", "deposit", "paymentComplete"];
       for (var i = 0; i < milestones.length; ++i) {
         if (!data[milestones[i]]) {
           return i;
@@ -72,11 +84,14 @@ export const BookingProvider = ({ id, ...props }) => {
     return <LoadingSpinner text="Gathering info..." />;
   }
 
-  const nextStep = (key) => {
-    console.log("nextStep");
-    const newData = { ...data };
-    newData[key] = true;
-    setData(newData);
+  const nextStep = async (newData, noSave) => {
+    const dataObj = { ...data, ...newData };
+
+    if (!noSave) {
+      await autoSave(dataObj);
+    } else {
+      setData(dataObj);
+    }
   };
 
   return (
@@ -85,6 +100,8 @@ export const BookingProvider = ({ id, ...props }) => {
         activeStep,
         nextStep,
         steps,
+        data,
+        bookingID: id[0],
       }}
       {...props}
     />
