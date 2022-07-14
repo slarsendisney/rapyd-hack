@@ -20,7 +20,7 @@ const Header = ({ noLinks = false }) => {
             {store ? (
               <>
                 {store.logo ? (
-                  <img src={store.logo} className="w-12 h-12" />
+                  <img src={store.logo} className="w-16 h-16" />
                 ) : (
                   <ShoppingBagIcon className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" />
                 )}
@@ -72,14 +72,23 @@ const Header = ({ noLinks = false }) => {
             )}
 
             {user && (
-              <button onClick={logout}>
-                <img
-                  src={user.photoURL}
-                  height={96}
-                  width={96}
-                  className="rounded-full h-8 w-8 ml-2"
-                  alt="profile image"
-                />
+              <button onClick={logout} className="mt-4 md:mt-0">
+                {user.photoURL ? (
+                  <picture >
+                    <source srcSet={user.photoURL} />
+                    <img
+                      src={user.photoURL}
+                      height={96}
+                      width={96}
+                      className="rounded-full h-8 w-8 ml-2"
+                      alt="profile image"
+                    />
+                  </picture>
+                ) : (
+                  <span className="text-white bg-indigo-500 px-2 py-1 rounded-full">
+                    {user.email}
+                  </span>
+                )}
               </button>
             )}
           </>

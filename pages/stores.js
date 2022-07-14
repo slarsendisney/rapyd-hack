@@ -52,7 +52,7 @@ export default function Book() {
       </Head>
       <Layout>
         <div className="max-w-6xl mx-auto md:px-4 space-y-4">
-          <DashboardHeader />
+          <DashboardHeader table={stores} />
           {loading ? (
             <LoadingSpinner text="Finding your stores..." />
           ) : stores.length === 0 ? (

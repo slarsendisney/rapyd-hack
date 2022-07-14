@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import Hero from "../components/landing/Hero";
+import Hero, { PlutusFeatures } from "../components/landing/Hero";
 import StoreGallery from "../components/landing/StoreGallery";
 import StoreHero from "../components/landing/StoreHero";
 import Layout from "../components/layout/Layout";
@@ -19,6 +19,7 @@ export default function Home() {
         </Head>
         <Layout>
           <Hero />
+          <PlutusFeatures />
           <StoreGallery />
         </Layout>
       </div>

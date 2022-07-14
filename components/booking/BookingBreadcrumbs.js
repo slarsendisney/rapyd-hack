@@ -1,32 +1,83 @@
+import { CheckIcon } from "@heroicons/react/solid";
 import { useBooking } from "../../context/booking-context";
+import { useStore } from "../../context/store-context";
 
-const BookingBreadcrumbs = () => {
-  const { activeStep } = useBooking();
-  const steps = [
-    { content: "🗓", label: "Dates" },
-    { content: "$", label: "Currency" },
-    { content: "😇", label: "Deposit" },
-    { content: "👍", label: "Settle Up" },
-    { content: "🚀", label: "Trip Finalized" },
-  ];
+export default function BookingBreadcrumbs() {
+  const { steps} = useBooking();
   return (
-    <div className="max-w-3xl mx-auto w-full">
-    <ul className="steps my-12 text-white max-w-3xl w-full border-gray-900 mx-auto">
-      {steps.map((step, index) => {
-        const isCompleted = index < activeStep;
-        return (
-          <li
-            data-content={isCompleted ? "✓" : undefined}
-            key={index}
-            className={`step ${isCompleted ? "step-primary" : ""}`}
-          >
-            {step.label}
-          </li>
-        );
-      })}
-    </ul>
-    </div>
-  );
-};
+    <nav aria-label="Progress">
+      <ol
+        role="list"
+        className="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0 mb-4"
+      >
+        {steps.map((step, stepIdx) => (
+          <li key={step.name} className="relative md:flex-1 md:flex">
+            {step.status === "complete" ? (
+              <a href={step.href} className="group flex items-center w-full">
+                <span className="px-6 py-4 flex items-center text-sm font-medium">
+                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-400 rounded-full group-hover:bg-indigo-800">
+                    <CheckIcon
+                      className="w-6 h-6 text-white"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <span className="ml-4 text-sm font-medium">{step.name}</span>
+                </span>
+              </a>
+            ) : step.status === "current" ? (
+              <a
+                href={step.href}
+                className="px-6 py-4 flex items-center text-sm font-medium"
+                aria-current="step"
+              >
+                <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-400 rounded-full">
+                  <span className="text-indigo-300">{step.id}</span>
+                </span>
+                <span className="ml-4 text-sm font-medium text-indigo-300">
+                  {step.name}
+                </span>
+              </a>
+            ) : (
+              <a href={step.href} className="group flex items-center">
+                <span className="px-6 py-4 flex items-center text-sm font-medium">
+                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-gray-300 rounded-full group-hover:border-gray-400">
+                    <span className=" group-hover:text-gray-200">
+                      {step.id}
+                    </span>
+                  </span>
+                  <span className="ml-4 text-sm font-medium  group-hover:text-gray-200">
+                    {step.name}
+                  </span>
+                </span>
+              </a>
+            )}
 
-export default BookingBreadcrumbs;
+            {stepIdx !== steps.length - 1 ? (
+              <>
+                {/* Arrow separator for lg screens and up */}
+                <div
+                  className="hidden md:block absolute top-0 right-0 h-full w-5"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="h-full w-full text-gray-300"
+                    viewBox="0 0 22 80"
+                    fill="none"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      d="M0 -2L20 40L0 82"
+                      vectorEffect="non-scaling-stroke"
+                      stroke="currentcolor"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}

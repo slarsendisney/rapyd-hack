@@ -2,6 +2,7 @@ import React, { useState, useContext, useMemo, useEffect } from "react";
 import BookingStep from "../components/booking/BookingStep";
 import LoadingSpinner from "../components/root/LoadingSpinner";
 import { useAuth } from "./auth-context";
+import { useStore } from "./store-context";
 
 const BookingContext = React.createContext();
 
@@ -9,6 +10,7 @@ export const BookingProvider = ({ id, ...props }) => {
   const {
     user: { uid },
   } = useAuth();
+  const { store } = useStore();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
 
@@ -24,7 +26,7 @@ export const BookingProvider = ({ id, ...props }) => {
     })();
   }, [id]);
 
-  const activeStep = useMemo(() => {
+  const activeStepIndex = useMemo(() => {
     if (data) {
       const milestones = [
         "launchDate",
@@ -43,13 +45,36 @@ export const BookingProvider = ({ id, ...props }) => {
     return 0;
   }, [data]);
 
+  const steps = [
+    { name: "Country", type: "COUNTRY" },
+    { name: "Currency", type: "CURRENCY" },
+    ...(store.depositPerc === 1
+      ? [{ name: "Pay", type: "PAY" }]
+      : [
+          { name: "Deposit", type: "DEPOSIT" },
+          { name: "Settle Up", type: "SETTLE" },
+        ]),
+    { name: "Order completion", type: "COMPLETE" },
+  ].map((step, index) => ({
+    ...step,
+    id: `0${index + 1}`,
+    status:
+      activeStepIndex > index
+        ? "complete"
+        : activeStepIndex === index
+        ? "current"
+        : "upcoming",
+  }));
+
+  const activeStep = steps[activeStepIndex];
+
   if (loading) {
     return <LoadingSpinner text="Gathering info..." />;
   }
 
   const nextStep = (key) => {
-    console.log("nextStep")
-    const newData = {...data};
+    console.log("nextStep");
+    const newData = { ...data };
     newData[key] = true;
     setData(newData);
   };
@@ -59,6 +84,7 @@ export const BookingProvider = ({ id, ...props }) => {
       value={{
         activeStep,
         nextStep,
+        steps,
       }}
       {...props}
     />

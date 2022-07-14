@@ -7,6 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   browserSessionPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
@@ -51,7 +52,17 @@ const Login = ({ login }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        if (errorCode === "auth/user-not-found") {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Signed in
+              navigate("/dashboard");
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+            });
+        }
       });
   };
 
@@ -59,7 +70,7 @@ const Login = ({ login }) => {
     <Layout noLinks={true}>
       <div className="min-h-full flex flex-col justify-center py-6 lg:py-24 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-12 text-center text-3xl font-bold">
+          <h2 className="mt-12 mb-6 text-center text-3xl font-bold">
             Sign in to continue
           </h2>
         </div>
