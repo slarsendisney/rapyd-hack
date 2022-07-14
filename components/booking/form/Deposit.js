@@ -58,7 +58,7 @@ const Deposit = () => {
       }),
     });
     const bookingData = await bookingInfo.json();
-    nextStep(bookingData, false);
+    nextStep(bookingData, true);
   };
 
   return (
