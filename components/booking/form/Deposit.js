@@ -40,28 +40,26 @@ const Deposit = () => {
     }
   }, []);
 
-  const fireTestDeposit = () => {
-    (async () => {
-      const bookingInfo = await fetch(`/api/test-deposit`, {
-        headers: {
-          Authorization: `Bearer ${uid}`,
-        },
-        method: "POST",
-        body: JSON.stringify({
-          uuid: uid,
-          bookingID: bookingID,
-          currency: data.currency,
-          countryCode: data.region,
-        }),
-      });
-      const bookingData = await bookingInfo.json();
-      nextStep(bookingData, false);
-    })();
-  };
-
   if (accountloading || !data.rapyd) {
     return <LoadingSpinner text="Generating virtual account..." />;
   }
+
+  const fireTestDeposit = async () => {
+    const bookingInfo = await fetch(`/api/test-deposit`, {
+      headers: {
+        Authorization: `Bearer ${uid}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        amount: store.depositPerc * data.localAmount,
+        currency: data.rapyd.currency,
+        issued_bank_account: data.rapyd.id,
+        bookingID,
+      }),
+    });
+    const bookingData = await bookingInfo.json();
+    nextStep(bookingData, false);
+  };
 
   return (
     <div>
@@ -86,8 +84,8 @@ const Deposit = () => {
                   <span className="font-bold">
                     {currencies[data.currency].symbol}
                     {(store.depositPerc * data.localAmount || 0).toFixed(2)}
-                  </span> ({currencies[data.currency].code}){" "}
-                  deposit.
+                  </span>{" "}
+                  ({currencies[data.currency].code}) deposit.
                 </h3>
               </div>
               {data.rapyd && (
@@ -132,7 +130,7 @@ const Deposit = () => {
             </div>
           </div>
           <p className="text-right text-sm text-gray-400">
-            Shh! You can also trigger a{" "}
+            You can also trigger a{" "}
             <a
               href="#"
               onClick={fireTestDeposit}

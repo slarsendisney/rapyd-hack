@@ -11,7 +11,6 @@ import { useStore } from "../../context/store-context";
 const Header = ({ noLinks = false }) => {
   const { user, logout } = useAuth();
   const { store } = useStore();
-  console.log(store);
   return (
     <header className="body-font max-w-6xl mx-auto">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">

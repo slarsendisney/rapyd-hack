@@ -45,7 +45,7 @@ export const BookingProvider = ({ id, ...props }) => {
 
   const activeStepIndex = useMemo(() => {
     if (data) {
-      const milestones = ["region", "currency", "deposit", "paymentComplete"];
+      const milestones = ["region", "currency", "depositPaid", "paymentComplete"];
       for (var i = 0; i < milestones.length; ++i) {
         if (!data[milestones[i]]) {
           return i;
