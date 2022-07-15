@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useBooking } from "../../context/booking-context";
 import CurrencyChoice from "./form/Currency";
 import Deposit from "./form/Deposit";
+import SettleUp from "./form/SettleUp";
 import WhereAndWhen from "./form/WhereAndWhen";
 
 const labels = ["When and Where?", "Local Payment"];
@@ -17,6 +18,8 @@ const BookingStep = () => {
         return <CurrencyChoice />;
       case "DEPOSIT":
         return <Deposit />;
+      case "SETTLE":
+        return <SettleUp />;
     }
   }, [activeStep]);
 

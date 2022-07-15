@@ -13,7 +13,7 @@ export const BookingProvider = ({ id, ...props }) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
 
-  console.log(data)
+  console.log(data);
   useEffect(() => {
     (async () => {
       const bookingInfo = await fetch(`/api/booking/${id}`, {
@@ -30,13 +30,16 @@ export const BookingProvider = ({ id, ...props }) => {
   const autoSave = async (newData) => {
     if (data) {
       console.log("autoSaving");
-      const bookingInfo = await fetch(`/api/booking/${id}?storeID=${subdomain}`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${uid}`,
-        },
-        body: JSON.stringify(newData),
-      });
+      const bookingInfo = await fetch(
+        `/api/booking/${id}?storeID=${subdomain}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${uid}`,
+          },
+          body: JSON.stringify(newData),
+        }
+      );
       const data = await bookingInfo.json();
       console.log(data);
       setData(data);
@@ -45,7 +48,12 @@ export const BookingProvider = ({ id, ...props }) => {
 
   const activeStepIndex = useMemo(() => {
     if (data) {
-      const milestones = ["region", "currency", "depositPaid", "paymentComplete"];
+      const milestones = [
+        "region",
+        "currency",
+        "depositPaid",
+        "paymentComplete",
+      ];
       for (var i = 0; i < milestones.length; ++i) {
         if (!data[milestones[i]]) {
           return i;
@@ -94,14 +102,27 @@ export const BookingProvider = ({ id, ...props }) => {
     }
   };
 
+  const transactions = data?.rapyd?.transactions || [];
+
+  const amountcollected = transactions.reduce((acc, cur) => {
+    return acc + cur.amount;
+  }, 0);
+
+  const totalAmount = data.localAmount || 0;
+
+  const remainingBalance = data.localAmount - amountcollected;
+
+  const percent = Math.floor((amountcollected / totalAmount) * 100);
+
   return (
     <BookingContext.Provider
       value={{
         activeStep,
         nextStep,
         steps,
-        data,
+        data: { ...data, remainingBalance, percent, amountcollected, transactions },
         bookingID: id[0],
+        remainingBalance,
       }}
       {...props}
     />
