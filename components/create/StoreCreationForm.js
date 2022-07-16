@@ -64,7 +64,7 @@ export const StoreCreationForm = () => {
 
   const [data, setData] = useState({ depositPerc: 0.1 });
   const [loading, setLoading] = useState(false);
-  const [subDomain, setSubDomain] = useState(null);
+  const [resultData, setResultData] = useState(null);
   const [uploadLogoFile, uploadingLogo, , logoError] = useUploadFile();
   const [uploadHeroFile, uploadingHero, , heroError] = useUploadFile();
 
@@ -112,7 +112,7 @@ export const StoreCreationForm = () => {
         additionalInfo.hero = heroURL;
       }
 
-      fetch("/api/generate-store", {
+      const resData = await fetch("/api/generate-store", {
         method: "POST",
         body: JSON.stringify({ ...rest, ...additionalInfo, uid }),
       })
@@ -122,14 +122,22 @@ export const StoreCreationForm = () => {
           }
           throw new Error("Store with that name already exists");
         })
-        .then((res) => {
-          setLoading(false);
-          setSubDomain(res.subdomain);
-        })
         .catch((err) => {
           alert(err);
           setLoading(false);
         });
+      const ultimateData = await fetch("/api/generate-wallet", {
+        method: "POST",
+        body: JSON.stringify({ uid, subdomain: resData.subdomain }),
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Rapyd wallet generation failed");
+      });
+
+      setLoading(false);
+      setResultData(ultimateData);
     }
   };
 
@@ -137,23 +145,29 @@ export const StoreCreationForm = () => {
     return <LoadingSpinner text="Creating Store" />;
   }
 
-  if (subDomain) {
+  if (resultData) {
     return (
       <div className="max-w-4xl mx-auto py-12">
-        <div className=" flex items-center justify-center space-x-4">
+        <div className=" mx-auto flex flex-col items-center text-center space-x-4">
           <CheckCircleIcon className="text-green-400 h-12" />
-          <h1 className="text-2xl">
-            Your store has been created at{" "}
+
+          <h1 className="text-2xl  mb-4">
+            Your store has been created at <br/>
             <a
-              className="text-indigo-400"
-              href={`http://${subDomain}.plutuspay.app`}
+              className="text-indigo-400 text-5xl"
+              href={`http://${resultData.subdomain}.plutuspay.app`}
             >
-              {subDomain}.plutuspay.app
+              {resultData.subdomain}.plutuspay.app
             </a>
           </h1>
+          <p className="text-sm max-w-sm mx-auto">
+            Your store&apos;s unique wallet ID:{" "}
+            <span className="font-bold">{resultData.rapyd.id}</span>{" "}
+          </p>
         </div>
+
         <Link href="/stores">
-          <button className="primary-button mx-auto block">
+          <button className="primary-button mx-auto block mt-5 btn-primary-lg">
             View your stores
           </button>
         </Link>
@@ -338,7 +352,10 @@ export const StoreCreationForm = () => {
               name="productID"
               id="productID"
               className="input cursor-not-allowed"
-              value={data.productName && data.productName.toUpperCase().replace(/[^a-zA-Z0-9]/g, "")}
+              value={
+                data.productName &&
+                data.productName.toUpperCase().replace(/[^a-zA-Z0-9]/g, "")
+              }
             />
           </div>
 

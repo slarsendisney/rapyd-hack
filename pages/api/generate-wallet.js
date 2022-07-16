@@ -4,32 +4,37 @@ import { database } from "../../utils/intialiseFirebase";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { uuid, bookingID, currency, countryCode } = JSON.parse(req.body);
-      const reference = `${uuid}.${bookingID}`;
+      const { uid, subdomain } = JSON.parse(req.body);
+      console.log(uid, subdomain);
+      const storeID = `${subdomain}|${uid}`;
       const {
         body: { data: WalletData },
-      } = await makeRequest("POST", "/v1/issuing/bankaccounts", {
-        currency: currency,
-        country: countryCode,
-        description: `Account issues for ${uuid} for booking ${bookingID}`,
-        ewallet: process.env.RAPYD_EWALLET,
-        merchant_reference_id: reference,
+      } = await makeRequest("POST", "/v1/user", {
+        ewallet_reference_id: storeID,
         metadata: {
-          merchant_defined: true,
+          subdomain,
+          uid
+        },
+        type: "company",
+        contact: {
+          contact_type: "business",
         },
       });
+      console.log(WalletData);
       const db = database();
-      const doc = await db.collection("bookings").doc(bookingID).get();
+      const doc = await db.collection("stores").doc(subdomain).get();
       if (doc.exists) {
-        const booking = doc.data();
-        const allData = { ...booking, rapyd: WalletData };
+        const store = doc.data();
+        const allData = { ...store, rapyd: WalletData };
 
-        await db.collection("bookings").doc(bookingID).set(allData, { merge: true });
+        await db
+          .collection("stores")
+          .doc(subdomain)
+          .set(allData, { merge: true });
         res.send(allData);
       } else {
         res.send(404, "Not Found");
       }
-     
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }

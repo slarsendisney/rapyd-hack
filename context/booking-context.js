@@ -106,13 +106,13 @@ export const BookingProvider = ({ id, ...props }) => {
 
   const amountcollected = transactions.reduce((acc, cur) => {
     return acc + cur.amount;
-  }, 0);
+  }, 0).toFixed(2);
 
   const totalAmount = data.localAmount || 0;
 
-  const remainingBalance = data.localAmount - amountcollected;
+  const remainingBalance = (data.localAmount - amountcollected).toFixed(2);
 
-  const percent = Math.floor((amountcollected / totalAmount) * 100);
+  const percent = Math.min(Math.ceil((amountcollected / totalAmount) * 100),100);
 
   return (
     <BookingContext.Provider

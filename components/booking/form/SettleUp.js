@@ -20,7 +20,7 @@ var currencies = require("country-data").currencies;
 const TransactionList = ({ transactions }) => {
   return (
     <div className="bg-gray-900 shadow overflow-hidden sm:rounded-md">
-      <ul role="list" className="divide-y divide-gray-200">
+      <ul role="list" className="divide-y-2 divide-gray-800">
         {transactions.map((position, i) => {
           const date = new Date(position.created_at * 1000);
           const dateString = `${date.getDate()}/${
@@ -28,38 +28,36 @@ const TransactionList = ({ transactions }) => {
           }/${date.getFullYear()}`;
           return (
             <li key={position.id}>
-              <a href="#" className="block">
-                <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium truncate">
-                      {position.amount} {position.currency}
+              <div className="px-4 py-4 sm:px-6">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium truncate">
+                    {position.amount} {position.currency}
+                  </p>
+                  <div className="ml-2 flex-shrink-0 flex">
+                    <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Recieved
                     </p>
-                    <div className="ml-2 flex-shrink-0 flex">
-                      <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Recieved
-                      </p>
-                    </div>
                   </div>
-                  <div className="mt-2 sm:flex sm:justify-between">
-                    <div className="sm:flex">
-                      <p className="flex items-center text-sm text-gray-200">
-                        <InformationCircleIcon
-                          className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                        {i == 0 ? "Initial Deposit" : "Transfer In"}
-                      </p>
-                    </div>
-                    <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                      <CalendarIcon
+                </div>
+                <div className="mt-2 sm:flex sm:justify-between">
+                  <div className="sm:flex">
+                    <p className="flex items-center text-sm text-gray-200">
+                      <InformationCircleIcon
                         className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                         aria-hidden="true"
                       />
-                      <p>{dateString}</p>
-                    </div>
+                      {i == 0 ? "Initial Deposit" : "Transfer In"}
+                    </p>
+                  </div>
+                  <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                    <CalendarIcon
+                      className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                    <p>{dateString}</p>
                   </div>
                 </div>
-              </a>
+              </div>
             </li>
           );
         })}
@@ -209,7 +207,7 @@ const SettleUp = () => {
               className={`${
                 data.percent >= 100
                   ? "text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
-                  : "text-gray-700 bg-gray-100 hover:bg-gray-200 cursor-not-allowed"
+                  : "text-gray-400 bg-gray-100 hover:bg-gray-200 cursor-not-allowed"
               } inline-flex items-center space-x-1 justify-center px-4 py-2 border border-transparent font-medium rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm`}
             >
               <CashIcon className="h-5 w-5" />

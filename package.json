@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "count": "cloc --exclude-ext=svg --not-match-d=assets components context hooks pages public styles utils"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
@@ -23,6 +24,7 @@
     "framer-motion": "^6.3.16",
     "https": "^1.0.0",
     "index-array-by": "^1.3.2",
+    "md5": "^2.3.0",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-currency-input-field": "^3.6.4",

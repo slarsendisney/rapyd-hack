@@ -15,7 +15,7 @@ export default function BookingBreadcrumbs() {
             {step.status === "complete" ? (
               <a href={step.href} className="group flex items-center w-full">
                 <span className="px-6 py-4 flex items-center text-sm font-medium">
-                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-400 rounded-full group-hover:bg-indigo-800">
+                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-400 rounded-full">
                     <CheckIcon
                       className="w-6 h-6 text-white"
                       aria-hidden="true"

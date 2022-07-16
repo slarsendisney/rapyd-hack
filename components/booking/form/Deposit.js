@@ -5,6 +5,8 @@ import { useBooking } from "../../../context/booking-context";
 import { useStore } from "../../../context/store-context";
 import LoadingSpinner from "../../root/LoadingSpinner";
 import { m } from "framer-motion";
+import { useToast } from "../../../context/toast-context";
+import Toast from "../../root/Toast";
 
 var currencies = require("country-data").currencies;
 
@@ -14,12 +16,13 @@ const Deposit = () => {
   const {
     user: { uid },
   } = useAuth();
+  const { fireToast } = useToast();
   const [accountloading, setAccountLoading] = useState(true);
 
   useEffect(() => {
     if (!data.rapyd) {
       (async () => {
-        const bookingInfo = await fetch(`/api/generate-wallet`, {
+        const bookingInfo = await fetch(`/api/generate-account`, {
           headers: {
             Authorization: `Bearer ${uid}`,
           },
@@ -29,6 +32,7 @@ const Deposit = () => {
             bookingID: bookingID,
             currency: data.currency,
             countryCode: data.region,
+            subdomain: store.subdomain,
           }),
         });
         const bookingData = await bookingInfo.json();
@@ -58,6 +62,11 @@ const Deposit = () => {
       }),
     });
     const bookingData = await bookingInfo.json();
+    fireToast(
+      <Toast duration={2000} title="Deposit Recieved">
+        Your deposit has reached our virtual account!
+      </Toast>
+    );
     nextStep(bookingData, true);
   };
 
