@@ -7,17 +7,17 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ToastProvider>
-      <StoreProvider>
-        <CurrencyProvider>
-          <AuthProvider>
-            <LazyMotion features={domAnimation}>
+    <LazyMotion features={domAnimation}>
+      <ToastProvider>
+        <StoreProvider>
+          <CurrencyProvider>
+            <AuthProvider>
               <Component {...pageProps} />
-            </LazyMotion>
-          </AuthProvider>
-        </CurrencyProvider>
-      </StoreProvider>
-    </ToastProvider>
+            </AuthProvider>
+          </CurrencyProvider>
+        </StoreProvider>
+      </ToastProvider>
+    </LazyMotion>
   );
 }
 

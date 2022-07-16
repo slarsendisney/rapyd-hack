@@ -64,6 +64,7 @@ export const ToastProvider = ({ children, ...props }) => {
       }}
       {...props}
     >
+        <div className="fixed top-0 left-0 h-screen w-screen pointer-events-none">
       <div className="absolute bottom-0 right-0 mr-5 mb-12 z-30">
         <AnimatePresence>
           {items.map(({ id, Component, duration }, i) => (
@@ -72,6 +73,7 @@ export const ToastProvider = ({ children, ...props }) => {
             </ListItem>
           ))}
         </AnimatePresence>
+      </div>
       </div>
       {children}
     </ToastContext.Provider>
