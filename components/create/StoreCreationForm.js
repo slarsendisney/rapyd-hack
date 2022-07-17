@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth-context";
-import { ArrowRightIcon, CheckCircleIcon } from "@heroicons/react/outline";
+import { ArrowRightIcon } from "@heroicons/react/outline";
+import { CheckCircleIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -16,27 +17,44 @@ const Divider = () => (
   </div>
 );
 
-const UploadFileWrapper = ({ children }) => (
-  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 bg-black border-dashed rounded-md">
-    <div className="space-y-1 text-center">
-      <svg
-        className="mx-auto h-12 w-12 "
-        stroke="currentColor"
-        fill="none"
-        viewBox="0 0 48 48"
-        aria-hidden="true"
-      >
-        <path
-          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <div className="flex text-sm flex-col">{children}</div>
-    </div>
-  </div>
-);
+const UploadFileWrapper = ({ uploaded, children }) => {
+  console.log(uploaded);
+  if (!uploaded) {
+    return (
+      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 bg-black border-dashed rounded-md">
+        <div className="space-y-1 text-center">
+          <svg
+            className="mx-auto h-12 w-12 "
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 48 48"
+            aria-hidden="true"
+          >
+            <path
+              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div className="flex text-sm flex-col">{children}</div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 bg-black rounded-md">
+        <div className="space-y-1 text-center">
+          <div className="flex space-x-1 items-center">
+            <CheckCircleIcon className="mx-auto h-8 w-8 text-green-500 " />
+            <div className="flex text-sm flex-col">{uploaded.name}</div>
+          </div>
+          {children}
+        </div>
+      </div>
+    );
+  }
+};
 
 const FormWrapper = ({ title, description, children }) => (
   <div className="mt-10 sm:mt-0">
@@ -152,7 +170,7 @@ export const StoreCreationForm = () => {
           <CheckCircleIcon className="text-green-400 h-12" />
 
           <h1 className="text-2xl  mb-4">
-            Your store has been created at <br/>
+            Your store has been created at <br />
             <a
               className="text-indigo-400 text-5xl"
               href={`http://${resultData.subdomain}.plutuspay.app`}
@@ -260,13 +278,13 @@ export const StoreCreationForm = () => {
                     />
                   </div>
                   <p className="mt-2 text-sm">
-                    Brief description of this site for the hero.
+                    Brief description of this store for the hero.
                   </p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium">Logo</label>
-                  <UploadFileWrapper>
+                  <UploadFileWrapper uploaded={data.logo}>
                     <div className="flex text-sm ">
                       <label
                         htmlFor="logo"
@@ -293,7 +311,7 @@ export const StoreCreationForm = () => {
                   <label className="block text-sm font-medium">
                     Hero photo
                   </label>
-                  <UploadFileWrapper>
+                  <UploadFileWrapper uploaded={data.heroImage}>
                     <div className="flex text-sm ">
                       <label
                         htmlFor="heroImage"
@@ -396,10 +414,10 @@ export const StoreCreationForm = () => {
               id="depositPerc"
               name="depositPerc"
               type="range"
-              min="0"
+              min="0.1"
               max="1"
               step={0.1}
-              defaultValue={0.1}
+              defaultValue={0.2}
               value={data.depositPerc}
               onChange={onChange}
               className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
@@ -409,6 +427,21 @@ export const StoreCreationForm = () => {
               {data.amount &&
                 `($${data.amount * (data.depositPerc || 0.1)}USD)`}
             </label>
+            {data.depositPerc === 1 && (
+              <div>
+                <div className="flex  space-x-1">
+                  <InformationCircleIcon className="h-5 w-5 text-indigo-400" />
+                  <div>
+                    <p className="text-sm text-indigo-300">How 100% deposits work</p>
+                    <p className="text-xs">
+                      When the deposit amount is 100%, we modify the checkout to
+                      be a single payment flow. We direct the customer to
+                      deposit the fill amount up front.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </FormWrapper>

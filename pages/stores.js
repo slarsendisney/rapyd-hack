@@ -44,9 +44,7 @@ export default function Book() {
     { accessor: "amount", value: "Amount" },
     { accessor: "subdomain", value: "Domain" },
   ];
-
-  console.log(stores);
-
+  
   const tableData = stores.map(({ rapyd, ...store }) => ({ expandedContent: (
     <div className="">
     <QuickActions store={{...store}} />

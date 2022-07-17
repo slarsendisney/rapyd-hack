@@ -6,12 +6,15 @@ export default async function handler(req, res) {
       const { subdomain } = JSON.parse(req.body);
       const db = database();
       //get stores where owner is uid
-      const store = await db
+      const storeRef = await db
         .collection("stores")
         .doc(subdomain)
-        .get();
+      const store = await storeRef.get();
       if(store.exists){
         const data = store.data();
+        await storeRef.update({
+          views: data.views? data.views + 1 : 1
+        })
         res.send(data);
       } else {
         res.status(404).send("Store not found");

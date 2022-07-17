@@ -1,17 +1,13 @@
-/* This example requires Tailwind CSS v2.0+ */
 import {
-  ArrowSmDownIcon,
-  ArrowSmUpIcon,
   ExclamationCircleIcon,
   CashIcon,
   ArrowRightIcon,
+  XCircleIcon
 } from "@heroicons/react/solid";
-import {
-  CursorClickIcon,
-  MailOpenIcon,
-  UsersIcon,
-} from "@heroicons/react/outline";
+import { MailOpenIcon } from "@heroicons/react/outline";
 import { useMemo } from "react";
+
+var currencies = require("country-data").currencies;
 
 function camel2title(camelCase) {
   // no side-effects
@@ -41,7 +37,6 @@ const QuickActions = ({ store }) => {
     });
     return milestoneCounts;
   }, [store, milestones]);
-  console.log(milestoneBookings);
 
   const steps = [
     { name: "Country", type: "COUNTRY" },
@@ -68,6 +63,9 @@ const QuickActions = ({ store }) => {
   const completedBookings = store.bookings.filter(
     ({ paymentComplete }) => paymentComplete
   ).length;
+  const cancelledBookings = store.bookings.filter(
+    ({ cancelled }) => cancelled
+  ).length;
   const stats = [
     {
       id: 1,
@@ -76,17 +74,25 @@ const QuickActions = ({ store }) => {
       icon: CashIcon,
       changeType: "increase",
       extra: (
-        <div className="">
-          {Object.keys(store.fundsByCurrency).map((currency) => (
-            <p key={currency}>
-              {" "}
-              {currency} :{" "}
-              <span className="font-bold">
-                {store.fundsByCurrency[currency].toFixed(2)}
-              </span>
-            </p>
-          ))}
-        </div>
+        <>
+          <div className="">
+            {Object.keys(store.fundsByCurrency).map((currency) => (
+              <p key={currency}>
+                {currency} :{" "}
+                <span className="font-bold">
+                  {currencies[currency].symbol}
+                  {store.fundsByCurrency[currency].toFixed(2)}
+                </span>
+              </p>
+            ))}
+          </div>
+          <div className="absolute bottom-0 inset-x-0 bg-gray-800 px-4 py-4 sm:px-6">
+            <button className="text-sm w-full flex items-center justify-between font-medium text-white hover:text-indigo-200">
+              <p>Withdraw</p>
+              <ArrowRightIcon className="h-5 w-5" />
+            </button>
+          </div>
+        </>
       ),
     },
     {
@@ -107,12 +113,10 @@ const QuickActions = ({ store }) => {
                       (milestoneBookings[i] / store.bookings.length) * 100
                     }%`,
                   }}
-                  className="absolute top-0 left-0w-full bg-indigo-800 rounded-full px-4 text-sm h-6 flex items-center"
-                >
-                  
-                </div>
-                <div className="absolute top-0 left-0 mx-2">
-                <p>{camel2title(milestone)} </p>
+                  className="absolute top-0 left-0w-full bg-indigo-500 rounded-full px-4 text-sm h-6 flex items-center"
+                ></div>
+                <div className="absolute top-0 left-0 mx-2 text-xs uppercase">
+                  <p className="mt-1">{camel2title(milestone)} </p>
                 </div>
               </div>
               <div className="">{milestoneBookings[i]}</div>
@@ -128,12 +132,27 @@ const QuickActions = ({ store }) => {
       icon: ExclamationCircleIcon,
       changeType: "decrease",
       extra: (
-        <div className="absolute bottom-0 inset-x-0 bg-gray-800 px-4 py-4 sm:px-6">
-          <button className="text-sm w-full flex items-center justify-between font-medium text-white hover:text-indigo-200">
-            <p>View all</p>
-            <ArrowRightIcon className="h-5 w-5" />
-          </button>
-        </div>
+        <>
+          <dt>
+            <div
+              className={`absolute bg-red-500 rounded-md p-3`}
+            >
+              <XCircleIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            </div>
+            <p className="ml-16 text-sm font-medium text-gray-100 truncate">
+              Cancelled
+            </p>
+          </dt>
+          <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
+            <p className="text-2xl font-semibold text-white">{cancelledBookings}</p>
+          </dd>
+          <div className="absolute bottom-0 inset-x-0 bg-gray-800 px-4 py-4 sm:px-6">
+            <button className="text-sm w-full flex items-center justify-between font-medium text-white hover:text-indigo-200">
+              <p>View refund requests</p>
+              <ArrowRightIcon className="h-5 w-5" />
+            </button>
+          </div>
+        </>
       ),
     },
   ];

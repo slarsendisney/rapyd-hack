@@ -27,11 +27,11 @@ const StatsCard = ({ store }) => {
       changeType: "increase",
     },
     {
-      name: "Avg. Click Rate",
-      stat: "24.57%",
-      previousStat: "28.62%",
-      change: "4.05%",
-      changeType: "decrease",
+      name: "Site Views",
+      stat: store.views? store.views : 0,
+      previousStat: 0,
+      change: "100%",
+      changeType: "increase",
     },
   ];
 
