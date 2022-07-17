@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useBooking } from "../../context/booking-context";
+import Complete from "./form/Complete";
 import CurrencyChoice from "./form/Currency";
 import Deposit from "./form/Deposit";
 import SettleUp from "./form/SettleUp";
@@ -20,6 +21,8 @@ const BookingStep = () => {
         return <Deposit />;
       case "SETTLE":
         return <SettleUp />;
+      case "COMPLETE":
+        return <Complete />;
     }
   }, [activeStep]);
 

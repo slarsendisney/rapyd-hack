@@ -7,6 +7,8 @@ import { useAuth } from "../context/auth-context";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import Table from "../components/dashboard/Table/Table";
 import EmptyState from "../components/dashboard/Table/EmptyState";
+import StatsCard from "../components/dashboard/StatsCards";
+import QuickActions from "../components/dashboard/QuickActions";
 
 export default function Book() {
   const {
@@ -43,6 +45,15 @@ export default function Book() {
     { accessor: "subdomain", value: "Domain" },
   ];
 
+  console.log(stores);
+
+  const tableData = stores.map(({ rapyd, ...store }) => ({ expandedContent: (
+    <div className="">
+    <QuickActions store={{...store}} />
+    <StatsCard store={{...store}}/>
+    </div>
+  ),
+  ...store, rapyd }));
   return (
     <div>
       <Head>
@@ -58,7 +69,7 @@ export default function Book() {
           ) : stores.length === 0 ? (
             <EmptyState />
           ) : (
-            <Table expandable={true} columns={columns} data={stores} />
+            <Table expandable={true} columns={columns} data={tableData} />
           )}
         </div>
       </Layout>

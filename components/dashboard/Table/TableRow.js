@@ -35,7 +35,7 @@ const TableRow = ({ row, expandable, columns }) => {
     </tr>,
     expandable && expanded ? (
       <tr className="w-full" key="Expanded Content">
-        <td colSpan={columns.length}>EXPANDED CONTENT</td>
+        <td colSpan={columns.length+1} className="pr-8 border-gray-800 border-l-2 border-b-0">{row.expandedContent}</td>
       </tr>
     ) : (
       <tr key="No Expanded Content" />

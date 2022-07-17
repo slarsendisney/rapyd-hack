@@ -17,7 +17,7 @@ import { useAuth } from "../../../context/auth-context";
 var countries = require("country-data").countries;
 var currencies = require("country-data").currencies;
 
-const TransactionList = ({ transactions }) => {
+const TransactionList = ({ transactions, currencySimple }) => {
   return (
     <div className="bg-gray-900 shadow overflow-hidden sm:rounded-md">
       <ul role="list" className="divide-y-2 divide-gray-800">
@@ -31,7 +31,7 @@ const TransactionList = ({ transactions }) => {
               <div className="px-4 py-4 sm:px-6">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium truncate">
-                    {position.amount} {position.currency}
+                    {currencySimple}{position.amount.toFixed(2)} {position.currency}
                   </p>
                   <div className="ml-2 flex-shrink-0 flex">
                     <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -188,7 +188,7 @@ const SettleUp = () => {
         </div>
         <div className="space-y-4">
           <div className="">
-            <TransactionList transactions={data.transactions} />
+            <TransactionList transactions={data.transactions} currencySimple={currencySimple} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -218,9 +218,9 @@ const SettleUp = () => {
             <p className="text-right text-sm text-gray-400">
               You can also trigger a{" "}
               <a
-                href="#"
+               
                 onClick={fireTestDeposit}
-                className="text-indigo-300 hover:underline"
+                className="text-indigo-300 hover:underline cursor-pointer"
               >
                 test transaction
               </a>{" "}

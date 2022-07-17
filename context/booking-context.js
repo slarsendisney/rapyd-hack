@@ -74,7 +74,7 @@ export const BookingProvider = ({ id, ...props }) => {
           { name: "Deposit", type: "DEPOSIT" },
           { name: "Settle Up", type: "SETTLE" },
         ]),
-    { name: "Order completion", type: "COMPLETE" },
+    { name: "Order Completion", type: "COMPLETE" },
   ].map((step, index) => ({
     ...step,
     id: `0${index + 1}`,

@@ -4,13 +4,14 @@ import { database } from "../../utils/intialiseFirebase";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { uuid } = req.body;
+      const { uuid, subdomain } = req.body;
       const bookingID = uuidv4();
 
       const db = database();
       const doc = await db.collection("bookings").doc(bookingID).set({
         owner: uuid,
         date: new Date(),
+        subdomain: subdomain,
       });
       res.send({ bookingID });
     } catch (err) {
