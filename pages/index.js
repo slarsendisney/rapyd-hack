@@ -1,6 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect } from "react";
 import Hero, { PlutusFeatures } from "../components/landing/Hero";
 import StoreGallery from "../components/landing/StoreGallery";
 import StoreHero from "../components/landing/StoreHero";
@@ -11,7 +9,6 @@ export default function Home() {
   const { store } = useStore();
 
   if (!store) {
-    
     return (
       <div>
         <Head>

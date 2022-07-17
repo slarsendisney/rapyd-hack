@@ -14,6 +14,8 @@ import {
 import { useBooking } from "../../../context/booking-context";
 import { m } from "framer-motion";
 import { useAuth } from "../../../context/auth-context";
+import { useModal } from "../../../context/modal-context";
+import WarningModal from "../../root/Modal";
 var countries = require("country-data").countries;
 var currencies = require("country-data").currencies;
 
@@ -31,7 +33,8 @@ const TransactionList = ({ transactions, currencySimple }) => {
               <div className="px-4 py-4 sm:px-6">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium truncate">
-                    {currencySimple}{position.amount.toFixed(2)} {position.currency}
+                    {currencySimple}
+                    {position.amount.toFixed(2)} {position.currency}
                   </p>
                   <div className="ml-2 flex-shrink-0 flex">
                     <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -71,6 +74,7 @@ const SettleUp = () => {
   const {
     user: { uid },
   } = useAuth();
+  const { openModal, closeModal } = useModal();
   const currency = countries[data.region].currencies[0];
   const currencySimple = currencies[currency].symbol;
 
@@ -83,7 +87,7 @@ const SettleUp = () => {
       },
       method: "POST",
       body: JSON.stringify({
-        amount: 0.1 * data.localAmount,
+        amount: data.remainingBalance/data.localAmount < 0.5 ? data.remainingBalance : data.localAmount/2,
         currency: data.rapyd.currency,
         issued_bank_account: data.rapyd.id,
         bookingID,
@@ -95,6 +99,24 @@ const SettleUp = () => {
 
   const submit = () => {
     nextStep({ paymentComplete: true });
+  };
+
+  const finalizeCancel = () => {
+    closeModal()
+    nextStep({ cancelled: true });
+    
+  }
+
+  const onCancelClick = () => {
+    openModal(
+      <WarningModal
+        title="Cancel Order"
+        cta="Cancel"
+        body="Are you wish you to cancel this order? Doing so will send a refund request to the store owner."
+        onCancel={closeModal}
+        onClick={finalizeCancel} 
+      />
+    );
   };
   return (
     <div>
@@ -188,12 +210,15 @@ const SettleUp = () => {
         </div>
         <div className="space-y-4">
           <div className="">
-            <TransactionList transactions={data.transactions} currencySimple={currencySimple} />
+            <TransactionList
+              transactions={data.transactions}
+              currencySimple={currencySimple}
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <button
-              // onClick={() => setUserSelectCurrency(true)}
+              onClick={onCancelClick}
               type="button"
               className="inline-flex items-center space-x-1 justify-center px-4 py-2 border border-transparent font-medium rounded-md text-red-800 bg-red-300 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             >
@@ -218,7 +243,6 @@ const SettleUp = () => {
             <p className="text-right text-sm text-gray-400">
               You can also trigger a{" "}
               <a
-               
                 onClick={fireTestDeposit}
                 className="text-indigo-300 hover:underline cursor-pointer"
               >

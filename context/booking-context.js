@@ -1,4 +1,5 @@
 import React, { useState, useContext, useMemo, useEffect } from "react";
+import Cancelled from "../components/booking/form/Cancelled";
 import LoadingSpinner from "../components/root/LoadingSpinner";
 import { useAuth } from "./auth-context";
 import { useStore } from "./store-context";
@@ -113,6 +114,12 @@ export const BookingProvider = ({ id, ...props }) => {
   const remainingBalance = (data.localAmount - amountcollected).toFixed(2);
 
   const percent = Math.min(Math.ceil((amountcollected / totalAmount) * 100),100);
+
+  if(data.cancelled){
+    return (
+      <Cancelled id={id[0]}/>
+    )
+  }
 
   return (
     <BookingContext.Provider
