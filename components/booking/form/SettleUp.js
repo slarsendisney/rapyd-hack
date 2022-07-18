@@ -21,7 +21,7 @@ var currencies = require("country-data").currencies;
 
 const TransactionList = ({ transactions, currencySimple }) => {
   return (
-    <div className="bg-gray-900 shadow overflow-hidden sm:rounded-md">
+    <div className="bg-site-background-light shadow overflow-hidden sm:rounded-md">
       <ul role="list" className="divide-y-2 divide-gray-800">
         {transactions.map((position, i) => {
           const date = new Date(position.created_at * 1000);
@@ -44,9 +44,9 @@ const TransactionList = ({ transactions, currencySimple }) => {
                 </div>
                 <div className="mt-2 sm:flex sm:justify-between">
                   <div className="sm:flex">
-                    <p className="flex items-center text-sm text-gray-200">
+                    <p className="flex items-center text-sm text-site-text">
                       <InformationCircleIcon
-                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                        className="flex-shrink-0 mr-1.5 h-5 w-5 text-site-text"
                         aria-hidden="true"
                       />
                       {i == 0 ? "Initial Deposit" : "Transfer In"}
@@ -54,7 +54,7 @@ const TransactionList = ({ transactions, currencySimple }) => {
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
                     <CalendarIcon
-                      className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                      className="flex-shrink-0 mr-1.5 h-5 w-5 text-site-text"
                       aria-hidden="true"
                     />
                     <p>{dateString}</p>
@@ -120,7 +120,7 @@ const SettleUp = () => {
   };
   return (
     <div>
-      <div className="bg-gray-900 shadow sm:rounded-lg mb-4">
+      <div className="bg-site-background-light shadow sm:rounded-lg mb-4">
         <div className="px-4 py-5 sm:p-6">
           <div className="flex space-x-2">
             <m.div
@@ -140,8 +140,8 @@ const SettleUp = () => {
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-6">
-          <div className="bg-gray-900 shadow sm:rounded-lg">
-            <div className="px-4 py-5 sm:p-6 text-white">
+          <div className="bg-site-background-light shadow sm:rounded-lg">
+            <div className="px-4 py-5 sm:p-6 text-site-text">
               <h3 className="text-lg font-medium text-center leading-6 mb-6">
                 Remaining balance: {currencySimple}
                 {data.remainingBalance}
@@ -149,7 +149,7 @@ const SettleUp = () => {
               <div className="relative flex items-center justify-center overflow-hidden rounded-full">
                 <svg className="w-[220px] h-[220px] mx-auto">
                   <circle
-                    className="text-gray-700"
+                    className="text-primary-dark"
                     strokeWidth="15"
                     stroke="currentColor"
                     fill="transparent"
@@ -158,7 +158,7 @@ const SettleUp = () => {
                     cy="110"
                   />
                   <circle
-                    className="text-indigo-400"
+                    className="text-primary"
                     strokeWidth="15"
                     strokeDasharray={circumference}
                     strokeDashoffset={
@@ -182,10 +182,10 @@ const SettleUp = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-900 shadow sm:rounded-lg px-4 py-5 sm:p-6 text-white">
-            <div className="mt-2 max-w-xl text-sm text-gray-300">
+          <div className="bg-site-background-light shadow sm:rounded-lg px-4 py-5 sm:p-6 text-site-text">
+            <div className="mt-2 max-w-xl text-sm text-site-text">
               {data.rapyd && (
-                <div className="mt-2 max-w-xl text-gray-300">
+                <div className="mt-2 max-w-xl text-site-text">
                   <p className="text-sm mb-1">
                     Pay into the following virtual account:
                   </p>
@@ -194,8 +194,8 @@ const SettleUp = () => {
                       .sort()
                       .map((key) => (
                         <div key={key}>
-                          <p className="text-white uppercase">
-                            <span className="font-bold text-indigo-200">
+                          <p className="text-site-text uppercase">
+                            <span className="font-bold text-primary">
                               {key.replace("_", " ")}
                             </span>
                             : {data.rapyd.bank_account[key]}
@@ -232,7 +232,7 @@ const SettleUp = () => {
               className={`${
                 data.percent >= 100
                   ? "text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
-                  : "text-gray-400 bg-gray-100 hover:bg-gray-200 cursor-not-allowed"
+                  : "text-site-text bg-gray-100 hover:bg-gray-200 cursor-not-allowed"
               } inline-flex items-center space-x-1 justify-center px-4 py-2 border border-transparent font-medium rounded-md  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm`}
             >
               <CashIcon className="h-5 w-5" />
@@ -240,11 +240,11 @@ const SettleUp = () => {
             </button>
           </div>
           {!(data.percent >= 100) && (
-            <p className="text-right text-sm text-gray-400">
+            <p className="text-right text-sm text-site-text">
               You can also trigger a{" "}
               <a
                 onClick={fireTestDeposit}
-                className="text-indigo-300 hover:underline cursor-pointer"
+                className="text-accent-1 hover:underline cursor-pointer"
               >
                 test transaction
               </a>{" "}

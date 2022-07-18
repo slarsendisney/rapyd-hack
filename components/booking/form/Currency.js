@@ -27,14 +27,14 @@ const CurrencyChoice = () => {
   return (
     <div>
       {userSelectCurrency ? (
-        <div className="bg-gray-900 shadow sm:rounded-lg">
+        <div className="bg-site-background-light shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center space-x-2">
               <h3 className="text-lg leading-6 font-medium ">
                 Want currency would you like to use?
               </h3>
             </div>
-            <div className="mt-2 max-w-xl text-sm text-gray-300">
+            <div className="mt-2 max-w-xl text-sm text-site-text">
               <p>
                 Please select your desired currency from the following dropdown.
               </p>
@@ -67,14 +67,14 @@ const CurrencyChoice = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-gray-900 shadow sm:rounded-lg">
+        <div className="bg-site-background-light shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center space-x-2">
               <h3 className="text-lg leading-6 font-medium ">
                 Want to pay in {currencyName}?
               </h3>
             </div>
-            <div className="mt-2 max-w-xl text-sm text-gray-300">
+            <div className="mt-2 max-w-xl text-sm text-site-text">
               <p>
                 As you have told us you are in{" "}
                 <span className="font-bold">{countries[data.region].name}</span>

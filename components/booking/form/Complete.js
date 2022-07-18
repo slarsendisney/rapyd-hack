@@ -7,17 +7,17 @@ const Complete = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-gray-900 shadow sm:rounded-lg max-w-lg mx-auto">
+      <div className="bg-site-background-light shadow sm:rounded-lg max-w-lg mx-auto">
         <div className="px-4 py-5 sm:p-6">
           <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
             <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
           </div>
           <div className="mt-3 text-center sm:mt-5">
-            <h3 className="text-lg leading-6 font-medium text-white">
+            <h3 className="text-lg leading-6 font-medium text-site-text">
               Order complete.
             </h3>
             <div className="mt-2">
-              <p className="text-sm text-gray-200">
+              <p className="text-sm text-site-text">
                 Your payment has now been finalized and your order is complete.
                 You can view your order details via your dashboard.
               </p>

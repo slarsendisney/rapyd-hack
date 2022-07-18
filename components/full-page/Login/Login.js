@@ -112,13 +112,13 @@ const Login = ({ login }) => {
     <Layout noLinks={true}>
       <div className="min-h-full flex flex-col justify-center py-6 lg:py-24 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-12 mb-6 text-center text-3xl font-bold">
+          <h2 className="mt-6 mb-6 text-center text-3xl font-bold">
             Sign in to continue
           </h2>
         </div>
 
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="bg-site-background-dark py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium">
@@ -174,7 +174,7 @@ const Login = ({ login }) => {
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-medium text-indigo-400 hover:text-indigo-300"
+                    className="font-medium  hover:text-primary"
                   >
                     Forgot your password?
                   </a>
@@ -197,7 +197,7 @@ const Login = ({ login }) => {
                   <div className="w-full border-t border-gray-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-gray-800">Or continue with</span>
+                  <span className="px-2 bg-site-background-dark">Or continue with</span>
                 </div>
               </div>
 

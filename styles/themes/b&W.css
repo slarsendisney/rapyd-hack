@@ -1,0 +1,22 @@
+.theme-b&W {
+--color-text: #000000;
+--color-bg: #ffffff;
+--color-primary: #888888;
+--color-primary-light: #c8c8c8;
+--color-primary-dark: #484848;
+--color-secondary: #999999;
+--color-secondary-light: #d9d9d9;
+--color-secondary-dark: #595959;
+--color-accent-1: #777;
+--color-accent-1-light: #b7b7b7;
+--color-accent-1-dark: #373737;
+--color-accent-2: #666;
+--color-accent-2-light: #a6a6a6;
+--color-accent-2-dark: #262626;
+--color-accent-3: #555;
+--color-accent-3-light: #959595;
+--color-accent-3-dark: #151515;
+--color-accent-4: #444;
+--color-accent-4-light: #848484;
+--color-accent-4-dark: #040404;
+}

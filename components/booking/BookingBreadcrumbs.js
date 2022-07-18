@@ -1,23 +1,27 @@
 import { CheckIcon } from "@heroicons/react/solid";
 import { useBooking } from "../../context/booking-context";
-import { useStore } from "../../context/store-context";
+import { m } from "framer-motion";
 
 export default function BookingBreadcrumbs() {
-  const { steps} = useBooking();
+  const { steps } = useBooking();
   return (
-    <nav aria-label="Progress">
+    <m.nav
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      aria-label="Progress"
+    >
       <ol
         role="list"
-        className="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0 mb-4"
+        className="border border-accent-2 rounded-md divide-y divide-accent-2 md:flex md:divide-y-0 mb-4"
       >
         {steps.map((step, stepIdx) => (
           <li key={step.name} className="relative md:flex-1 md:flex">
             {step.status === "complete" ? (
               <a href={step.href} className="group flex items-center w-full">
                 <span className="px-6 py-4 flex items-center text-sm font-medium">
-                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-indigo-400 rounded-full">
+                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-accent-2 rounded-full">
                     <CheckIcon
-                      className="w-6 h-6 text-white"
+                      className="w-6 h-6 text-site-text"
                       aria-hidden="true"
                     />
                   </span>
@@ -30,10 +34,10 @@ export default function BookingBreadcrumbs() {
                 className="px-6 py-4 flex items-center text-sm font-medium"
                 aria-current="step"
               >
-                <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-indigo-400 rounded-full">
-                  <span className="text-indigo-300">{step.id}</span>
+                <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center border-2 border-accent-2 rounded-full">
+                  <span className="text-accent-2">{step.id}</span>
                 </span>
-                <span className="ml-4 text-sm font-medium text-indigo-300">
+                <span className="ml-4 text-sm font-medium text-accent-2">
                   {step.name}
                 </span>
               </a>
@@ -78,6 +82,6 @@ export default function BookingBreadcrumbs() {
           </li>
         ))}
       </ol>
-    </nav>
+    </m.nav>
   );
 }

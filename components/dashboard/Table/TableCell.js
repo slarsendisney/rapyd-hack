@@ -5,7 +5,7 @@ const TableCell = ({ render, colIndex }) => {
   return (
     <td
       className={`px-6 py-2 whitespace-nowrap font-medium ${
-        isFirst ? "text-primary" : "text-gray-400"
+        isFirst ? "text-site-text" : "text-gray-400"
       } `}
     >
       {render()}

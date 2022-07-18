@@ -1,0 +1,26 @@
+.theme-sunset {
+--color-text: #2F0C46;
+--color-text-light: #4c1371;
+--color-text-dark: #12051a;
+--color-bg: #FCEDF2;
+--color-bg-light: #ffffff;
+--color-bg-dark: #f5c1d2;
+--color-primary: #c05299;
+--color-primary-light: #e2afd0;
+--color-primary-dark: #6b2753;
+--color-secondary: #FBBF24;
+--color-secondary-light: #fde4a1;
+--color-secondary-dark: #9d7203;
+--color-accent-1: #973aa8;
+--color-accent-1-light: #cb8bd7;
+--color-accent-1-dark: #421949;
+--color-accent-2: #c05299;
+--color-accent-2-light: #e2afd0;
+--color-accent-2-dark: #6b2753;
+--color-accent-3: #6d23b6;
+--color-accent-3-light: #ad74e4;
+--color-accent-3-dark: #2d0e4b;
+--color-accent-4: #FBBF24;
+--color-accent-4-light: #fde4a1;
+--color-accent-4-dark: #9d7203;
+}

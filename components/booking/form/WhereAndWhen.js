@@ -21,14 +21,14 @@ const WhereAndWhen = () => {
   return (
     <div>
       {userSelectRegion ? (
-        <div className="bg-gray-900 shadow sm:rounded-lg">
+        <div className="bg-site-background-light shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center space-x-2">
               <h3 className="text-lg leading-6 font-medium ">
                 Country Selection
               </h3>
             </div>
-            <div className="mt-2 max-w-xl text-sm text-gray-300">
+            <div className="mt-2 max-w-xl text-sm text-site-text">
               <p>Please select your country from the following dropdown.</p>
             </div>
             <div>
@@ -59,14 +59,14 @@ const WhereAndWhen = () => {
           </div>
         </div>
       ) : (
-        <div className="bg-gray-900 shadow sm:rounded-lg">
+        <div className="bg-site-background-light shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center space-x-2">
               <h3 className="text-lg leading-6 font-medium ">
                 {countries[region].name}
               </h3>
             </div>
-            <div className="mt-2 max-w-xl text-sm text-gray-300">
+            <div className="mt-2 max-w-xl text-sm text-site-text">
               <p>
                 {" "}
                 First we need to establish your country. It looks like you are

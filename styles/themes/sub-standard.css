@@ -1,0 +1,26 @@
+.theme-sub-standard {
+--color-text: #f4f4f4;
+--color-text-light: #ffffff;
+--color-text-dark: #dadada;
+--color-bg: #1F2937;
+--color-bg-light: #314158;
+--color-bg-dark: #0d1116;
+--color-primary: #DB2777;
+--color-primary-light: #ed94bc;
+--color-primary-dark: #70133c;
+--color-secondary: #2563EB;
+--color-secondary-light: #9ab7f6;
+--color-secondary-dark: #0c3284;
+--color-accent-1: #2563EB;
+--color-accent-1-light: #9ab7f6;
+--color-accent-1-dark: #0c3284;
+--color-accent-2: #059669;
+--color-accent-2-light: #23f8b6;
+--color-accent-2-dark: #011b13;
+--color-accent-3: #DB2777;
+--color-accent-3-light: #ed94bc;
+--color-accent-3-dark: #70133c;
+--color-accent-4: #D97706;
+--color-accent-4-light: #fbb564;
+--color-accent-4-dark: #5d3303;
+}

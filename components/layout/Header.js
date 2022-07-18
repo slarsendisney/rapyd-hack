@@ -38,12 +38,12 @@ const Header = ({ noLinks = false }) => {
               <>
                 <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
                   <Link href="/bookings">
-                    <a className="mr-5 hover:text-indigo-400">My Orders</a>
+                    <a className="mr-5 hover:text-primary-light">My Orders</a>
                   </Link>
                 </nav>
 
                 <Link href="/book">
-                  <button className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-400 rounded text-base mt-4 md:mt-0">
+                  <button className="inline-flex items-center bg-primary border-0 py-1 px-3 focus:outline-none hover:bg-primary-light rounded text-white text-base mt-4 md:mt-0">
                     Buy Now
                     <ArrowRightIcon className="h-4 w-4 ml-1" />
                   </button>

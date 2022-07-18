@@ -5,6 +5,7 @@ import CurrencyChoice from "./form/Currency";
 import Deposit from "./form/Deposit";
 import SettleUp from "./form/SettleUp";
 import WhereAndWhen from "./form/WhereAndWhen";
+import { m } from "framer-motion";
 
 const labels = ["When and Where?", "Local Payment"];
 
@@ -28,7 +29,11 @@ const BookingStep = () => {
     }
   }, [activeStep]);
 
-  return <FormDetail />;
+  return (
+    <m.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
+      <FormDetail />
+    </m.div>
+  );
 };
 
 export default BookingStep;

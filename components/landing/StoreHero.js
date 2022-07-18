@@ -8,7 +8,7 @@ const StoreHero = () => {
   const {store} = useStore()
 
   return (
-    <section className=" body-font">
+    <section className="body-font">
       <div className="container mx-auto flex px-5 py-12 md:py-24 md:flex-row flex-col items-center">
         <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
           <div className="flex justify-center pointer-events-none md:-my-12">
@@ -24,7 +24,7 @@ const StoreHero = () => {
           </p>
           <div className="flex justify-center space-x-3">
             <Link href="/book">
-            <button className="flex items-center space-x-1 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+            <button className="flex items-center space-x-1 text-white bg-primary border-0 py-2 px-6 focus:outline-none hover:bg-primary-light rounded text-lg">
               <PaperAirplaneIcon className="h-5 w-5" />{" "}
               <span>Buy Now</span>
             </button>

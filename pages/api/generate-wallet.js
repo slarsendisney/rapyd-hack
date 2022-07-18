@@ -1,19 +1,20 @@
 import { makeRequest } from "../../utilities";
 import { database } from "../../utils/intialiseFirebase";
+import { uuidv4 } from "@firebase/util";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
       const { uid, subdomain } = JSON.parse(req.body);
-      console.log(uid, subdomain);
-      const storeID = `${subdomain}|${uid}`;
+      const uuid = uuidv4();
+      const storeID = `${subdomain}|${uid}|${uuid}`;
       const {
         body: { data: WalletData },
       } = await makeRequest("POST", "/v1/user", {
         ewallet_reference_id: storeID,
         metadata: {
           subdomain,
-          uid
+          uid,
         },
         type: "company",
         contact: {

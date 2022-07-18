@@ -1,0 +1,26 @@
+.theme-sub-lemon {
+--color-text: #f4f4f4;
+--color-text-light: #ffffff;
+--color-text-dark: #dadada;
+--color-bg: #1F2937;
+--color-bg-light: #314158;
+--color-bg-dark: #0d1116;
+--color-primary: #1FC180;
+--color-primary-light: #76e9bb;
+--color-primary-dark: #0d5337;
+--color-secondary: #086375;
+--color-secondary-light: #10c8ec;
+--color-secondary-dark: #000000;
+--color-accent-1: #0f766e;
+--color-accent-1-light: #22e3d4;
+--color-accent-1-dark: #010505;
+--color-accent-2: #14b8a6;
+--color-accent-2-light: #5eedde;
+--color-accent-2-dark: #08453e;
+--color-accent-3: #208b3a;
+--color-accent-3-light: #53d773;
+--color-accent-3-dark: #08230f;
+--color-accent-4: #134e4a;
+--color-accent-4-light: #2cb4ab;
+--color-accent-4-dark: #000000;
+}

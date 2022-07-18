@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import Link from "next/link";
 import LoadingSpinner from "../../components/root/LoadingSpinner";
+import { themes } from "./themes";
+
+const lightThemes = Object.keys(themes).filter((name) => !name.includes("sub"));
+const darkThemes = Object.keys(themes).filter((name) => name.includes("sub"));
 
 const Divider = () => (
   <div className="hidden sm:block" aria-hidden="true">
@@ -18,10 +22,9 @@ const Divider = () => (
 );
 
 const UploadFileWrapper = ({ uploaded, children }) => {
-  console.log(uploaded);
   if (!uploaded) {
     return (
-      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 bg-black border-dashed rounded-md">
+      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 bg-site-background border-dashed rounded-md">
         <div className="space-y-1 text-center">
           <svg
             className="mx-auto h-12 w-12 "
@@ -80,7 +83,7 @@ export const StoreCreationForm = () => {
 
   const storage = getStorage();
 
-  const [data, setData] = useState({ depositPerc: 0.1 });
+  const [data, setData] = useState({ depositPerc: 0.1, theme:darkThemes[0] });
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState(null);
   const [uploadLogoFile, uploadingLogo, , logoError] = useUploadFile();
@@ -102,6 +105,9 @@ export const StoreCreationForm = () => {
     setData({ ...data, [e.target.name]: e.target.checked });
   };
 
+  const onThemeSelect = (theme) => {
+    setData({ ...data, theme: theme });
+  };
   const onSubmit = async (e) => {
     const requiredFields = ["amount", "storeName", "productName"];
     const missingFields = requiredFields.filter(
@@ -172,7 +178,7 @@ export const StoreCreationForm = () => {
           <h1 className="text-2xl  mb-4">
             Your store has been created at <br />
             <a
-              className="text-indigo-400 text-5xl"
+              className="text-primary-light text-5xl"
               href={`http://${resultData.subdomain}.plutuspay.app`}
             >
               {resultData.subdomain}.plutuspay.app
@@ -288,7 +294,7 @@ export const StoreCreationForm = () => {
                     <div className="flex text-sm ">
                       <label
                         htmlFor="logo"
-                        className="relative cursor-pointer  rounded-md font-medium text-indigo-400 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative cursor-pointer  rounded-md font-medium text-primary-light hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
@@ -315,7 +321,7 @@ export const StoreCreationForm = () => {
                     <div className="flex text-sm ">
                       <label
                         htmlFor="heroImage"
-                        className="relative cursor-pointer  rounded-md font-medium text-indigo-400 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative cursor-pointer  rounded-md font-medium text-primary-light hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
@@ -341,6 +347,79 @@ export const StoreCreationForm = () => {
       </div>
       <Divider />
 
+      <FormWrapper
+        title="Store Customization"
+        description="Let's add some color to your site..."
+      >
+        <div className="w-full">
+          <div className="grid grid-cols-4 gap-4">
+            <div className="col-span-4">
+              <p>Light Themes</p>{" "}
+            </div>
+            {lightThemes.map((theme) => (
+              <div key={theme} className={`theme-${theme}`}>
+                <button
+                  onClick={() => onThemeSelect(theme)}
+                  className={`${data.theme === theme ? "border-primary ": "border-site-background"} border-4 text-left p-2 w-full rounded bg-site-background text-site-text`}
+                >
+                  <div className="w-full relative flex justify-between items-center mb-2">
+                    <p className="uppercase text-xs">{theme}</p>
+                    <p className="text-site-text">
+                      <span className="font-bold">A</span>a
+                    </p>
+                  </div>
+                  <div className="flex space-x-1 items-center">
+                    {[
+                      "bg-accent-1",
+                      "bg-accent-2",
+                      "bg-accent-3",
+                      "bg-accent-4",
+                    ].map((style) => (
+                      <div
+                        key="style"
+                        className={`${style} h-3 w-3 rounded-full`}
+                      />
+                    ))}
+                  </div>
+                </button>
+              </div>
+            ))}
+            <div className="col-span-4">
+              <p>Dark Themes</p>{" "}
+            </div>
+            {darkThemes.map((theme) => (
+              <div key={theme} className={`theme-${theme}`}>
+                <button
+                  onClick={() => onThemeSelect(theme)}
+                  className={`${data.theme === theme ? "border-primary ": "border-site-background"} border-4 text-left p-2 w-full rounded bg-site-background text-site-text`}
+                >
+                  <div className="w-full relative flex justify-between items-center mb-2">
+                    <p className="uppercase text-xs">{theme}</p>
+                    <p className="text-site-text">
+                      <span className="font-bold">A</span>a
+                    </p>
+                  </div>
+                  <div className="flex space-x-1 items-center">
+                    {[
+                      "bg-accent-1",
+                      "bg-accent-2",
+                      "bg-accent-3",
+                      "bg-accent-4",
+                    ].map((style) => (
+                      <div
+                        key="style"
+                        className={`${style} h-3 w-3 rounded-full`}
+                      />
+                    ))}
+                  </div>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </FormWrapper>
+
+      <Divider />
       <FormWrapper
         title="Product Information"
         description="Details about your product."
@@ -430,9 +509,11 @@ export const StoreCreationForm = () => {
             {data.depositPerc === 1 && (
               <div>
                 <div className="flex  space-x-1">
-                  <InformationCircleIcon className="h-5 w-5 text-indigo-400" />
+                  <InformationCircleIcon className="h-5 w-5 text-primary-light" />
                   <div>
-                    <p className="text-sm text-indigo-300">How 100% deposits work</p>
+                    <p className="text-sm text-indigo-300">
+                      How 100% deposits work
+                    </p>
                     <p className="text-xs">
                       When the deposit amount is 100%, we modify the checkout to
                       be a single payment flow. We direct the customer to

@@ -84,7 +84,7 @@ const Deposit = () => {
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
             <h3 className="text-lg font-medium leading-6">Pay your deposit.</h3>
-            <p className="mt-1 text-sm text-gray-200">
+            <p className="mt-1 text-sm text-site-text">
               {isSingleTransaction ? (
                 <span>It is now time to make your purchase.</span>
               ) : (
@@ -98,7 +98,7 @@ const Deposit = () => {
           </div>
         </div>
         <div className="mt-5 md:mt-0 md:col-span-2 space-y-4">
-          <div className="bg-gray-900 shadow sm:rounded-lg">
+          <div className="bg-site-background-light shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <div className="flex items-center space-x-1">
                 <CashIcon className="h-6 w-6" />
@@ -113,7 +113,7 @@ const Deposit = () => {
                 </h3>
               </div>
               {data.rapyd && (
-                <div className="mt-2 max-w-xl text-gray-300">
+                <div className="mt-2 max-w-xl text-site-text">
                   <p className="text-sm mb-1">
                     Pay into the following virtual account:
                   </p>
@@ -122,8 +122,8 @@ const Deposit = () => {
                       .sort()
                       .map((key) => (
                         <div key={key}>
-                          <p className="text-white uppercase">
-                            <span className="font-bold text-indigo-200">
+                          <p className="text-site-text uppercase">
+                            <span className="font-bold text-primary">
                               {key.replace("_", " ")}
                             </span>
                             : {data.rapyd.bank_account[key]}
@@ -135,7 +135,7 @@ const Deposit = () => {
               )}
             </div>
           </div>
-          <div className="bg-gray-900 shadow sm:rounded-lg">
+          <div className="bg-site-background-light shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <div className="flex space-x-2">
                 <m.div
@@ -153,12 +153,12 @@ const Deposit = () => {
               </div>
             </div>
           </div>
-          <p className="text-right text-sm text-gray-400">
+          <p className="text-right text-sm text-site-text">
             You can also trigger a{" "}
             <a
               href="#"
               onClick={fireTestDeposit}
-              className="text-indigo-300 hover:underline"
+              className="text-accent-1 hover:underline"
             >
               test deposit
             </a>{" "}
