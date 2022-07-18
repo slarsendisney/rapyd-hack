@@ -19,6 +19,8 @@ const BookingStep = () => {
         return <CurrencyChoice />;
       case "DEPOSIT":
         return <Deposit />;
+      case "PAY":
+        return <Deposit />;
       case "SETTLE":
         return <SettleUp />;
       case "COMPLETE":

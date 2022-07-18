@@ -66,6 +66,9 @@ const QuickActions = ({ store }) => {
   const cancelledBookings = store.bookings.filter(
     ({ cancelled }) => cancelled
   ).length;
+  const refundBookings = store.bookings.filter(
+    ({ payoutProvided }) => payoutProvided
+  ).length;
   const stats = [
     {
       id: 1,
@@ -128,7 +131,7 @@ const QuickActions = ({ store }) => {
     {
       id: 3,
       name: "Refunds requested",
-      stat: 0,
+      stat: refundBookings,
       icon: ExclamationCircleIcon,
       changeType: "decrease",
       extra: (

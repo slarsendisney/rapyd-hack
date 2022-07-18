@@ -19,6 +19,8 @@ const Deposit = () => {
   const { fireToast } = useToast();
   const [accountloading, setAccountLoading] = useState(true);
 
+  const isSingleTransaction = store.depositPerc === 1;
+
   useEffect(() => {
     if (!data.rapyd) {
       (async () => {
@@ -55,7 +57,9 @@ const Deposit = () => {
       },
       method: "POST",
       body: JSON.stringify({
-        amount: store.depositPerc * data.localAmount,
+        amount: isSingleTransaction
+          ? data.localAmount
+          : store.depositPerc * data.localAmount,
         currency: data.rapyd.currency,
         issued_bank_account: data.rapyd.id,
         bookingID,
@@ -63,8 +67,12 @@ const Deposit = () => {
     });
     const bookingData = await bookingInfo.json();
     fireToast(
-      <Toast duration={2000} title="Deposit Recieved">
-        Your deposit has reached our virtual account!
+      <Toast
+        duration={2000}
+        title={isSingleTransaction ? "Payment Recieved" : "Deposit Recieved"}
+      >
+        Your {isSingleTransaction ? "payment" : "deposit"} has reached our
+        virtual account!
       </Toast>
     );
     nextStep(bookingData, true);
@@ -77,9 +85,15 @@ const Deposit = () => {
           <div className="px-4 sm:px-0">
             <h3 className="text-lg font-medium leading-6">Pay your deposit.</h3>
             <p className="mt-1 text-sm text-gray-200">
-              It&apos;s now time to pay your deposit. Deposit for your{" "}
-              {store.productName} is {store.depositPerc * 100}% of the total
-              price.
+              {isSingleTransaction ? (
+                <span>It is now time to make your purchase.</span>
+              ) : (
+                <span>
+                  It&apos;s now time to pay your deposit. Deposit for your{" "}
+                  {store.productName} is {store.depositPerc * 100}% of the total
+                  price.
+                </span>
+              )}
             </p>
           </div>
         </div>
@@ -94,7 +108,8 @@ const Deposit = () => {
                     {currencies[data.currency].symbol}
                     {(store.depositPerc * data.localAmount || 0).toFixed(2)}
                   </span>{" "}
-                  ({currencies[data.currency].code}) deposit.
+                  ({currencies[data.currency].code}){" "}
+                  {isSingleTransaction ? "balance" : "deposit"}.
                 </h3>
               </div>
               {data.rapyd && (

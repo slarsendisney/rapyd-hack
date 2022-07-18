@@ -10,9 +10,13 @@ import {
   createUserWithEmailAndPassword,
   browserSessionPersistence,
   browserLocalPersistence,
+  TwitterAuthProvider,
+  GithubAuthProvider
 } from "firebase/auth";
 
 const googleProvider = new GoogleAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const Login = ({ login }) => {
   const [email, setEmail] = useState("");
@@ -37,6 +41,44 @@ const Login = ({ login }) => {
         const email = error.email;
       });
   };
+
+  const signInWithTwitter = () => {
+    auth.setPersistence(browserLocalPersistence);
+    signInWithPopup(auth, twitterProvider)
+      .then((result) => {
+        // The signed-in user info.
+        // const user = result.user
+        login();
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+      });
+  };
+
+  const signInWithGithub = () => {
+    auth.setPersistence(browserLocalPersistence);
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        console.log(result);
+        // The signed-in user info.
+        // const user = result.user
+        login();
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        console.log(error)
+      });
+  }
 
   const signInWithEmail = () => {
     if (persistance) {
@@ -159,7 +201,7 @@ const Login = ({ login }) => {
                 </div>
               </div>
 
-              <SocialSignIn signInWithGoogle={signInWithGoogle} />
+              <SocialSignIn signInWithGoogle={signInWithGoogle} signInWithTwitter={signInWithTwitter} signInWithGithub={signInWithGithub} />
             </div>
           </div>
         </div>

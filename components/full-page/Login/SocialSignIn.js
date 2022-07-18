@@ -1,4 +1,8 @@
-const SocialSignIn = ({ signInWithGoogle }) => {
+const SocialSignIn = ({
+  signInWithGoogle,
+  signInWithTwitter,
+  signInWithGithub,
+}) => {
   return (
     <div className="mt-6 grid grid-cols-3 gap-3">
       <div>
@@ -43,7 +47,10 @@ const SocialSignIn = ({ signInWithGoogle }) => {
       </div>
 
       <div>
-        <button className="w-full inline-flex justify-center py-2 px-4 rounded-md shadow-sm bg-[#1da1f2] text-sm font-medium text-white border border-[#1da1f2]">
+        <button
+          onClick={signInWithTwitter}
+          className="w-full inline-flex justify-center py-2 px-4 rounded-md shadow-sm bg-[#1da1f2] text-sm font-medium text-white border border-[#1da1f2]"
+        >
           <span className="sr-only">Sign in with Twitter</span>
           <svg
             className="w-5 h-5"
@@ -57,7 +64,10 @@ const SocialSignIn = ({ signInWithGoogle }) => {
       </div>
 
       <div>
-        <button className="w-full inline-flex justify-center py-2 px-4 border border-white rounded-md shadow-sm bg-white text-sm font-medium text-gray-800 hover:bg-gray-50">
+        <button
+          onClick={signInWithGithub}
+          className="w-full inline-flex justify-center py-2 px-4 border border-white rounded-md shadow-sm bg-white text-sm font-medium text-gray-800 hover:bg-gray-50"
+        >
           <span className="sr-only">Sign in with GitHub</span>
           <svg
             className="w-5 h-5"

@@ -37,6 +37,11 @@ a {
   @apply bg-gray-800 hover:bg-gray-700 text-gray-200 px-4 py-0.5 rounded font-bold;
 }
 
+
+.btn-secondary-lg {
+  @apply bg-gray-800 hover:bg-gray-700 text-gray-200 px-4 py-2 rounded font-bold;
+}
+
 .btn-icon {
   @apply text-indigo-400 hover:text-indigo-500;
 }

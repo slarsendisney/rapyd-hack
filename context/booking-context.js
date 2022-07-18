@@ -117,7 +117,7 @@ export const BookingProvider = ({ id, ...props }) => {
 
   if(data.cancelled){
     return (
-      <Cancelled id={id[0]}/>
+      <Cancelled id={id[0]} currency={data.currency} payoutProvided={data.payoutProvided}/>
     )
   }
 
