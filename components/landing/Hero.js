@@ -60,7 +60,7 @@ export const PlutusFeatures = () => {
             {features.map((feature) => (
               <div key={feature.name} className="relative">
                 <dt>
-                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                  <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-accent-1 text-white">
                     <feature.icon className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <p className="ml-16 text-lg leading-6 font-medium ">
@@ -105,6 +105,7 @@ const Hero = () => {
               arcLabel={(d) =>
                 `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`
               }
+              atmosphereColor="#5FB0B7"
               arcStroke={1}
               arcStartLat={(d) => +d.srcAirport.lat}
               arcStartLng={(d) => +d.srcAirport.lng}
@@ -135,7 +136,7 @@ const Hero = () => {
           </p>
           <div className="flex justify-center space-x-3">
             <Link href="/create">
-              <button className="flex items-center space-x-1 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <button className="flex items-center space-x-1 text-white bg-accent-1 border-0 py-2 px-6 focus:outline-none hover:bg-accent-1-dark rounded text-lg">
                 <PaperAirplaneIcon className="h-5 w-5" />{" "}
                 <span>Create a store</span>
               </button>

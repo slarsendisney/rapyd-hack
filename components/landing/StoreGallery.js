@@ -28,7 +28,7 @@ const StoreGallery = () => {
         </div>
         <div className="grid md:grid-cols-3 gap-4 w-full">
           {previewStores.map((store, index) => (
-            <a href={store.url} key={index} className="flex flex-col bg-gray-900 p-6 hover:bg-gray-800">
+            <a href={store.url} key={index} className="transform hover:scale-105 duration-100 flex flex-col bg-accent-1 text-white p-6 hover:bg-accent-1 rounded">
               <p className="text-xl font-bold">{store.name}</p>
               <p>{store.description}</p>
             </a>

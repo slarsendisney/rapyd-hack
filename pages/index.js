@@ -2,6 +2,7 @@ import Head from "next/head";
 import Hero, { PlutusFeatures } from "../components/landing/Hero";
 import StoreGallery from "../components/landing/StoreGallery";
 import StoreHero from "../components/landing/StoreHero";
+import StoreFeatures from "../components/landing/StoreFeatures";
 import Layout from "../components/layout/Layout";
 import { useStore } from "../context/store-context";
 
@@ -33,6 +34,7 @@ export default function Home() {
         </Head>
         <Layout>
           <StoreHero />
+          <StoreFeatures />
         </Layout>
       </div>
     );

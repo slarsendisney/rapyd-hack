@@ -19,13 +19,13 @@ const Header = ({ noLinks = false }) => {
             {store ? (
               <>
                 {store.logo ? (
-                  <img src={store.logo} className="w-16 h-16" />
+                  <img src={store.logo} className="w-16" />
                 ) : (
-                  <ShoppingBagIcon className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" />
+                  <ShoppingBagIcon className="w-10 h-10 text-white p-2 bg-accent-1 rounded-full" />
                 )}
               </>
             ) : (
-              <GlobeAltIcon className="w-10 h-10 text-white p-1 bg-indigo-500 rounded-full" />
+              <GlobeAltIcon className="w-10 h-10 text-white p-1 bg-accent-1 rounded-full" />
             )}
             <span className="ml-3 text-2xl font-bold">
               {store ? store.storeName : "PlutusPay"}

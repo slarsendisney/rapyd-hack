@@ -67,7 +67,7 @@ export const BookingProvider = ({ id, ...props }) => {
   }, [data]);
 
   const steps = [
-    { name: "Country", type: "COUNTRY" },
+    { name: "Basic Info", type: "COUNTRY" },
     { name: "Currency", type: "CURRENCY" },
     ...(store.depositPerc === 1
       ? [{ name: "Pay", type: "PAY" }]

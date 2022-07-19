@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/solid";
 import { MailOpenIcon } from "@heroicons/react/outline";
 import { useMemo } from "react";
+import Link from "next/link";
 
 var currencies = require("country-data").currencies;
 
@@ -78,7 +79,7 @@ const QuickActions = ({ store }) => {
       changeType: "increase",
       extra: (
         <>
-          <div className="">
+          <div className="md:p-0 pb-12">
             {Object.keys(store.fundsByCurrency).map((currency) => (
               <p key={currency}>
                 {currency} :{" "}
@@ -89,7 +90,7 @@ const QuickActions = ({ store }) => {
               </p>
             ))}
           </div>
-          <div className="absolute bottom-0 inset-x-0 bg-gray-800 px-4 py-4 sm:px-6">
+          <div className="absolute bottom-0 inset-x-0 bg-site-background-light px-4 py-4 sm:px-6">
             <button className="text-sm w-full flex items-center justify-between font-medium text-white hover:text-indigo-200">
               <p>Withdraw</p>
               <ArrowRightIcon className="h-5 w-5" />
@@ -138,7 +139,7 @@ const QuickActions = ({ store }) => {
         <>
           <dt>
             <div
-              className={`absolute bg-red-500 rounded-md p-3`}
+              className={`absolute bg-red-500 rounded-md p-3 `}
             >
               <XCircleIcon className="h-6 w-6 text-white" aria-hidden="true" />
             </div>
@@ -146,14 +147,16 @@ const QuickActions = ({ store }) => {
               Cancelled
             </p>
           </dt>
-          <dd className="ml-16 pb-6 flex items-baseline sm:pb-7">
+          <dd className="ml-16 pb-6 flex items-baseline mf:pb-0 pb-12 ">
             <p className="text-2xl font-semibold text-white">{cancelledBookings}</p>
           </dd>
-          <div className="absolute bottom-0 inset-x-0 bg-gray-800 px-4 py-4 sm:px-6">
+          <div className="absolute bottom-0 inset-x-0 bg-site-background-light px-4 py-4 sm:px-6">
+            <Link href={`/refunds/${store.subdomain}`}>
             <button className="text-sm w-full flex items-center justify-between font-medium text-white hover:text-indigo-200">
               <p>View refund requests</p>
               <ArrowRightIcon className="h-5 w-5" />
             </button>
+            </Link>
           </div>
         </>
       ),
