@@ -3,17 +3,25 @@ import { database } from "../../utils/intialiseFirebase";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      const { subdomain } = JSON.parse(req.body);
+      const { subdomain, uid } = JSON.parse(req.body);
+      console.log({ subdomain, uid });
       const db = database();
       const bookingsRef = await db.collection("bookings");
-      const bookingCollections = await bookingsRef
+      let bookingCollections;
+
+      bookingCollections = await bookingsRef
         .where("subdomain", "==", subdomain)
         .get();
-      const data = [];
+
+      let data = [];
       bookingCollections.forEach((doc) => {
-        data.push(doc.data());
+        const documentData = doc.data();
+        data.push({ ...documentData, id: doc.id });
       });
 
+      if (uid) {
+        data = data.filter((booking) => booking.owner === uid);
+      }
       res.send(data);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);

@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import BookingBreadcrumbs from "../../components/booking/BookingBreadcrumbs";
@@ -19,7 +20,9 @@ export default function Home() {
         <BookingProvider id={id}>
           <div className="">
             <BookingBreadcrumbs />
-            <BookingStep />
+            <AnimatePresence exitBeforeEnter>
+              <BookingStep />
+            </AnimatePresence>
           </div>
         </BookingProvider>
       </Layout>

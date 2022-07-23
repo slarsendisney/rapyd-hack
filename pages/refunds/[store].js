@@ -70,7 +70,7 @@ export default function Bookings() {
           <h1 className="text-2xl">Refund Requests for <span className="text-accent-1 font-bold">{store}.plutuspay.app</span></h1>
           <DashboardHeader noCta searchText="Search refunds..." />
           {loading ? (
-            <LoadingSpinner text="Finding your stores..." />
+            <LoadingSpinner text="Finding your refunds..." />
           ) : (
             <Table expandable={false} columns={columns} data={tableData} />
           )}

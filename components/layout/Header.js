@@ -15,7 +15,7 @@ const Header = ({ noLinks = false }) => {
     <header className="body-font max-w-6xl mx-auto">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link href="/" className="flex title-font font-medium items-center">
-          <a className="flex items-center  mb-4 md:mb-0">
+          <a className="flex items-center mt-4 md:mt-0  mb-4 md:mb-0">
             {store ? (
               <>
                 {store.logo ? (
@@ -27,7 +27,7 @@ const Header = ({ noLinks = false }) => {
             ) : (
               <GlobeAltIcon className="w-10 h-10 text-white p-1 bg-accent-1 rounded-full" />
             )}
-            <span className="ml-3 text-2xl font-bold">
+            <span className="ml-3 text-4xl md:text-2xl font-bold">
               {store ? store.storeName : "PlutusPay"}
             </span>
           </a>
@@ -56,22 +56,10 @@ const Header = ({ noLinks = false }) => {
                     <a className="mr-5 hover:text-indigo-400">Stats</a>
                   </Link>
                   <Link href="/stores">
-                    <a className="mr-5 hover:text-indigo-400">My Stores</a>
+                    <a className="md:mr-5 hover:text-indigo-400">My Stores</a>
                   </Link>
-                </nav>
-                {!user && (
-                  <Link href="/create">
-                    <button className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-400 rounded text-base mt-4 md:mt-0">
-                      <PaperAirplaneIcon className="h-4 w-4 mr-1" />
-                      Create Store
-                    </button>
-                  </Link>
-                )}
-              </>
-            )}
-
-            {user && (
-              <button onClick={logout} className="mt-4 md:mt-0">
+                  {user && (
+              <button onClick={logout}>
                 {user.photoURL ? (
                   <picture >
                     <source srcSet={user.photoURL} />
@@ -90,6 +78,19 @@ const Header = ({ noLinks = false }) => {
                 )}
               </button>
             )}
+                </nav>
+                {!user && (
+                  <Link href="/create">
+                    <button className="inline-flex items-center bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-400 rounded text-xl mt-4 md:mt-0">
+                      <PaperAirplaneIcon className="h-4 w-4 mr-1" />
+                      Create Store
+                    </button>
+                  </Link>
+                )}
+              </>
+            )}
+
+       
           </>
         )}
       </div>

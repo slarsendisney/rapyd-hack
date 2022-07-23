@@ -93,7 +93,7 @@ const Hero = () => {
   return (
     <section className=" body-font">
       <div className="container mx-auto flex px-5 py-12 md:py-24 md:flex-row flex-col items-center">
-        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+        <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 -mt-12">
           <div className="flex justify-center pointer-events-none -my-24 md:-my-12 transform scale-75 md:scale-100">
             <Globe
               ref={globeEl}
