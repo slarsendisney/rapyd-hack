@@ -20,7 +20,7 @@ const StatsComponent = () => {
   const allFundsInUSD = data.reduce((acc, curr) => {
     const { allFundsInUSD } = curr;
     return acc + allFundsInUSD;
-  }, 0);
+  }, 0).toFixed(2);
 
   const bookingCount = data.reduce((acc, curr) => {
     const { bookings } = curr;
