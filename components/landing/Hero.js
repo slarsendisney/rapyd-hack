@@ -90,6 +90,13 @@ const Hero = () => {
     globeEl.current.controls().autoRotate = true;
     globeEl.current.controls().autoRotateSpeed = 0.6;
   }, []);
+
+  const scrollToStores = ()=> {
+    document.getElementById('#gallery').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
   return (
     <section className=" body-font">
       <div className="container mx-auto flex px-5 py-12 md:py-24 md:flex-row flex-col items-center">
@@ -141,7 +148,7 @@ const Hero = () => {
                 <span>Create a store</span>
               </button>
             </Link>
-            <button className="flex items-center space-x-1 text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+            <button onClick={scrollToStores} className="flex items-center space-x-1 text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
               <ShoppingBagIcon className="h-5 w-5" /> <span>View stores</span>
             </button>
           </div>

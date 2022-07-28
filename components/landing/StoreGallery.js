@@ -4,17 +4,17 @@ const previewStores = [
     name: "Space Tour",
     description:
       "Space Tour is on a mission to make paying for space tourisim easy. ",
-    url: "https://store1.plutuspay.app",
+    url: "https://spacetours.plutuspay.app",
   },
   {
-    name: "Clooney Interviews",
-    description: "Ever wanted to interview a celebrity? Now you can. ",
-    url: "https://store2.plutuspay.app",
+    name: "Strange Tourism",
+    description: "A trip into the multiverse with the one and only Dr. Strange.",
+    url: "https://strange.plutuspay.app",
   },
   {
-    name: "Sports Car Crazed",
+    name: "The Super Car Store",
     description: "The best sports car store in the world. ",
-    url: "https://store3.plutuspay.app",
+    url: "https://supercar.plutuspay.app",
   },
 ];
 
@@ -24,7 +24,7 @@ const StoreGallery = () => {
       <div className="max-w-5xl mx-auto flex px-5 py-12 md:py-24 flex-col space-y-4">
         <div className="flex items-center space-x-2">
           <ShoppingBagIcon className="h-8 w-8" />
-          <h2 className="text-xl font-medium">Store Gallery</h2>
+          <h2 id="#gallery" className="text-xl font-medium">Store Gallery</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-4 w-full">
           {previewStores.map((store, index) => (
