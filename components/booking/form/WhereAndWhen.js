@@ -226,7 +226,7 @@ const WhereAndWhen = () => {
               <p>
                 {" "}
                 First we need to establish your country. It looks like you are
-                in <span className="font-bold">{countries[region].name}</span>.
+                from <span className="font-bold">{countries[region].name}</span>.
                 Is that correct?
               </p>
             </div>
