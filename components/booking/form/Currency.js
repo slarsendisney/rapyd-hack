@@ -76,7 +76,7 @@ const CurrencyChoice = () => {
             </div>
             <div className="mt-2 max-w-xl text-sm text-site-text">
               <p>
-                As you have told us you are in{" "}
+                As you have told us you are from{" "}
                 <span className="font-bold">{countries[data.region].name}</span>
                 , we assume you want to pay in {currencyName}. Is that correct?
               </p>
